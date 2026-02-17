@@ -43,61 +43,69 @@ body {
 /* ================= HEADER ================= */
 .header {
     position: sticky;
-    top:0;
+    top: 0;
+    width: 100%;
     background: #0a1f44;
     padding: 12px 0;
     z-index: 2500;
+    transition: background 0.3s ease;
 }
 
 .header .nav {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
 }
 
-/* Logo */
+/* ================= LOGO ================= */
 .header .logo img {
-    max-height:55px;
-    width:auto;
+    max-height: 55px;
+    width: auto;
 }
 
-/* ================= NAVIGATION ================= */
+/* ================= NAV LINKS ================= */
 #navMenu {
-    display:flex;
-    align-items:center;
-    gap:25px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
 .nav-link {
-    position:relative;
-    text-decoration:none;
-    color:#fff;
-    font-weight:500;
-    font-size:15px;
-    padding:5px 0;
-    transition:0.3s;
+    position: relative;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 5px 0;
+    transition: 0.3s;
 }
 
 .nav-link::after {
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-4px;
-    width:0%;
-    height:2px;
-    background:linear-gradient(90deg,#4f46e5,#06b6d4);
-    transition:0.35s ease;
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(90deg, #4f46e5, #06b6d4);
+    transition: 0.35s ease;
 }
 
-.nav-link:hover::after { width:100%; }
-.nav-link:hover { color:#4f46e5; }
+.nav-link:hover::after {
+    width: 100%;
+}
 
-/* ================= HAMBURGER ================= */
+.nav-link:hover {
+    color: #4f46e5;
+}
+
+/* ================= HAMBURGER MENU ================= */
+
+
+/* Hamburger button reset */
 .hamburger {
-    display: none;
-    position: relative;   /* 🔥 THIS FIXES z-index */
-    z-index: 3000;        /* now it will work */
+    display: none; /* default desktop */
     flex-direction: column;
     justify-content: space-between;
     width: 28px;
@@ -105,90 +113,153 @@ body {
     background: transparent;
     border: none;
     cursor: pointer;
+    position: relative;
+    z-index: 3000;
+
+    /* RESET global button styles */
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
 }
 
-
+/* Hamburger lines */
 .hamburger span {
-    height:3px;
-    width:100%;
-    background:#fff;
-    border-radius:2px;
-    transition:0.3s ease;
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    border-radius: 2px; /* small rounding for aesthetic lines */
+    transition: all 0.3s ease;
 }
 
-/* Animation */
+/* Show on mobile */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex !important;
+    }
+}
+
+/* Hamburger animation when active */
 .hamburger.active span:nth-child(1) {
-    transform:rotate(45deg) translateY(9px);
+    transform: rotate(45deg) translateY(9px);
 }
+
 .hamburger.active span:nth-child(2) {
-    opacity:0;
+    opacity: 0;
 }
+
 .hamburger.active span:nth-child(3) {
-    transform:rotate(-45deg) translateY(-9px);
+    transform: rotate(-45deg) translateY(-9px);
 }
 
+/* ================= THEME TOGGLE ================= */
+.theme-toggle {
+    position: relative;
+    width: 65px;
+    height: 32px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 8px;
+    overflow: hidden;
+}
 
-/* ================= MOBILE NAV FULL SCREEN ================= */
-@media (max-width:768px) {
+.toggle-circle {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background: #fff;
+    border-radius: 50%;
+    left: 4px;
+    transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    z-index: 2;
+}
 
+.icon {
+    font-size: 14px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+body.dark .toggle-circle {
+    transform: translateX(33px);
+}
+
+body:not(.dark) .theme-toggle {
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+}
+
+/* ================= MOBILE NAVIGATION ================= */
+@media (max-width: 768px) {
+
+    /* Adjust header padding for mobile */
     .header {
-        padding:10px 15px;
+        padding: 10px 15px;
     }
 
     .header .logo img {
-        max-height:45px;
+        max-height: 45px;
     }
 
     /* Show hamburger */
     .hamburger {
-        display:flex;
-        position:relative;
-        z-index:2001;
+        display: flex;
     }
 
-
-    /* FULL SCREEN SIDE MENU */
+    /* Full screen side menu */
     #navMenu {
-        position:fixed;
-        top:0;
-        right:-100%;
-        width:280px;
-        height:100vh;
-        background:#0a1f44;
-        flex-direction:column;
-        align-items:flex-start;
-        padding:100px 30px;
-        gap:25px;
-        transition:right 0.4s ease;
-        z-index:2000;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #0a1f44;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 100px 30px;
+        gap: 25px;
+        transition: right 0.4s ease;
+        z-index: 2000;
     }
 
-    /* When active slide in */
     #navMenu.active {
-        right:0;
+        right: 0;
     }
 
-    /* Make links white in side menu */
+    /* Mobile nav links */
     #navMenu .nav-link {
-        color:#fff;
-        font-size:18px;
-        width:100%;
+        color: #fff;
+        font-size: 18px;
+        width: 100%;
     }
 
     /* Remove underline animation in mobile */
     #navMenu .nav-link::after {
-        display:none;
+        display: none;
     }
 
+    /* Theme toggle spacing */
     #navMenu .theme-toggle {
-        margin-top:30px;
+        margin-top: 30px;
     }
 
-    /* Prevent body scroll when menu open (optional but recommended) */
+    /* Prevent body scroll when menu open */
     body.menu-open {
-        overflow:hidden;
+        overflow: hidden;
     }
 }
+
+/* Optional: Smooth transition for header background on scroll */
+.header.scrolled {
+    background: rgba(10,31,68,0.95);
+    backdrop-filter: blur(5px);
+}
+
 
 
 /* ================= THEME TOGGLE ================= */
