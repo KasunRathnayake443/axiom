@@ -4,14 +4,27 @@ document.addEventListener("DOMContentLoaded", function () {
     /* =============== HAMBURGER =============== */
     /* ========================================= */
 
-    const hamburger = document.getElementById("hamburger");
-    const navMenu = document.getElementById("navMenu");
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+const mobileOverlay = document.getElementById("mobileOverlay");
 
-    hamburger.addEventListener("click", () => {
-        hamburger.classList.toggle("active");
-        navMenu.classList.toggle("active");
-        document.body.classList.toggle("menu-open");
-    });
+// Toggle menu on hamburger click
+hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    navMenu.classList.toggle("active");
+    mobileOverlay.classList.toggle("active");
+    document.body.classList.toggle("menu-open");
+});
+
+// Close menu when clicking overlay
+mobileOverlay.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+    mobileOverlay.classList.remove("active");
+    document.body.classList.remove("menu-open");
+});
+
+
 
     /* ========================================= */
     /* =============== THEME TOGGLE ============ */
