@@ -47,64 +47,60 @@ document.addEventListener("DOMContentLoaded", function () {
     /* ============ STAGGER CARD EFFECT ======== */
     /* ========================================= */
 
-/* ========================================= */
-/* ============ MULTI STEP FORM ============ */
-/* ========================================= */
+    const cards = document.querySelectorAll(".card");
 
-const steps = document.querySelectorAll(".form-step");
-const nextBtns = document.querySelectorAll(".btn-next");
-const prevBtns = document.querySelectorAll(".prev-btn");
-const progress = document.querySelector(".progress");
+    cards.forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.1}s`;
+    });
 
-let currentStep = 0;
+    /* ========================================= */
+    /* ============ MULTI STEP FORM ============ */
+    /* ========================================= */
 
-function updateProgress() {
-    const percent = ((currentStep + 1) / steps.length) * 100;
-    progress.style.width = percent + "%";
-}
+    const steps = document.querySelectorAll(".form-step");
+    const nextBtns = document.querySelectorAll(".btn-next");
+    const prevBtns = document.querySelectorAll(".prev-btn");
+    const progress = document.querySelector(".progress");
 
-function showStep(newIndex, direction) {
+    let currentStep = 0;
 
-    const current = steps[currentStep];
-    const next = steps[newIndex];
-
-    // Animate current out
-    if (direction === "next") {
-        current.classList.remove("active");
-        current.classList.add("exit-left");
-    } else {
-        current.classList.remove("active");
-        current.classList.add("exit-right");
+    function updateProgress() {
+        const percent = ((currentStep + 1) / steps.length) * 100;
+        progress.style.width = percent + "%";
     }
 
-    // Small delay so exit animates smoothly
-    setTimeout(() => {
-        current.classList.remove("exit-left", "exit-right");
+    function showStep(index, direction) {
+        steps.forEach((step, i) => {
+            step.classList.remove("active", "exit-left", "exit-right");
 
-        next.classList.add("active");
+            if (i === index) {
+                step.classList.add("active");
+            } else if (i < index) {
+                step.classList.add(direction === "next" ? "exit-left" : "exit-right");
+            }
+        });
 
-        currentStep = newIndex;
         updateProgress();
-    }, 300);
-}
+    }
 
-nextBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        if (currentStep < steps.length - 1) {
-            showStep(currentStep + 1, "next");
-        }
+    nextBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (currentStep < steps.length - 1) {
+                currentStep++;
+                showStep(currentStep, "next");
+            }
+        });
     });
-});
 
-prevBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        if (currentStep > 0) {
-            showStep(currentStep - 1, "prev");
-        }
+    prevBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep, "prev");
+            }
+        });
     });
-});
 
-updateProgress();
-
+    updateProgress();
 
 });
