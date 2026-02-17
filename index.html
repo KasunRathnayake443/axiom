@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axiom Global | Strategic Clarity. Sustainable Growth.</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Axiom Global">
+        </div>
+
+        <!-- Hamburger button for mobile -->
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav id="navMenu">
+            <a href="#expertise" class="nav-link">Expertise</a>
+            <a href="#contact" class="nav-link">Contact</a>
+
+            <!-- Theme Toggle -->
+            <button id="themeToggle" class="theme-toggle">
+                <span class="icon sun">☀️</span>
+                <span class="icon moon">🌙</span>
+                <span class="toggle-circle"></span>
+            </button>
+        </nav>
+    </div>
+</header>
+
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container hero-content reveal">
+        <h1>Strategic Clarity. Sustainable Growth.</h1>
+        <p>
+            Axiom Global provides the 360° advisory backbone that SMEs need to scale.
+            From regulatory compliance to financial health, we bridge the gap between
+            where your business is and where it needs to be.
+        </p>
+        <a href="#contact" class="btn-primary">
+            Book Your Free 20-Minute Strategy Session
+        </a>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section reveal">
+    <div class="container center">
+        <h2>Why Partner With Us?</h2>
+        <p>
+            Navigating the complexities of the modern corporate landscape requires more than just 
+            service providers; it requires a strategic partner. With over a decade of high-level 
+            experience in corporate recoveries, AML, and regulatory compliance, we understand the
+             friction points that hold SMEs back. 
+        </p>
+        <br>
+        <p>
+
+            Axiom Global was founded to provide a singular, integrated touchpoint for businesses. 
+            We don’t just identify problems—we engineer the operational, legal, and financial 
+            frameworks that allow you to lead with confidence.
+        </p>
+    </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise" class="section alt reveal">
+    <div class="container">
+        <h2 class="center">Our Expertise</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Operations</h3>
+                <p>Streamlining your internal workflows to ensure maximum efficiency as you scale.</p>
+            </div>
+            <div class="card">
+                <h3>Finance</h3>
+                <p>Strategic capital management and financial advisory to protect your bottom line.</p>
+            </div>
+            <div class="card">
+                <h3>Sales & Marketing</h3>
+                <p>Data-driven strategies to expand your market share and reach the right clients.</p>
+            </div>
+            <div class="card">
+                <h3>HR Advisory</h3>
+                <p>Building the human infrastructure and policy frameworks your growing team needs.</p>
+            </div>
+            <div class="card">
+                <h3>Tax Advisory</h3>
+                <p>Navigating the local and international tax landscape to ensure optimization and compliance.</p>
+            </div>
+            <div class="card">
+                <h3>Regulatory & Compliance</h3>
+                <p>Expert guidance on AML, exchange control, and industry-specific regulations.</p>
+            </div>
+            <div class="card">
+                <h3>Legal Risk Management</h3>
+                <p>Drafting, vetting, and managing the contracts that protect your commercial interests.</p>
+            </div>
+            <div class="card">
+                <h3>Secretarial & Notarial</h3>
+                <p>Reliable corporate secretarial support and notarial services to keep your entity in good standing.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= STRATEGY SESSION ================= -->
+<section class="section strategy-session">
+    <div class="container center">
+        <h2>Let’s Discuss Your Roadmap</h2>
+        <p class="strategy-text">
+            Execution starts with a conversation. We offer a complimentary 
+            <strong>20-minute Zoom consultation</strong> to understand your current challenges 
+            and long-term vision. This isn't a sales call—it’s a discovery session 
+            to see if our expertise aligns with your growth trajectory.
+        </p>
+    </div>
+</section>
+
+
+<!-- CONTACT -->
+<section id="contact" class="section reveal">
+    <div class="container">
+        <h2 class="center">Book Your Free 20-Minute Consultation</h2>
+
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <form id="multiStepForm" action="submit.php" method="POST">
+
+            <!-- ================= PART A ================= -->
+            <div class="form-step active">
+                <h3>Part A: Identity</h3>
+                <h5 class="form-step-count">1/3</h5>
+
+                <input type="text" name="full_name" placeholder="Full Name & Title (e.g., CEO, Director)" required>
+                <input type="text" name="company" placeholder="Registered Company Name" required>
+
+                <select name="industry" required>
+                    <option value="">Industry / Sector</option>
+                    <option>Banking & Financial Services</option>
+                    <option>Manufacturing & Industrial</option>
+                    <option>Retail & E-commerce</option>
+                    <option>Technology & Software</option>
+                    <option>Import / Export & Logistics</option>
+                    <option>Construction & Real Estate</option>
+                    <option>Hospitality & Tourism</option>
+                    <option>Healthcare & Pharmaceuticals</option>
+                    <option>Professional Services</option>
+                    <option>Other</option>
+                </select>
+
+                <input type="email" name="email" placeholder="Work Email" required>
+                <input type="text" name="phone" placeholder="Phone Number" required>
+
+                <select name="contact_method" required>
+                    <option value="">Preferred Contact Method</option>
+                    <option>Email</option>
+                    <option>WhatsApp</option>
+                    <option>Phone Call</option>
+                </select>
+
+                <button type="button" class="btn-next">Next</button>
+            </div>
+
+            <!-- ================= PART B ================= -->
+            <div class="form-step">
+                <h3>Part B: The Challenge</h3>
+                 <h5 class="form-step-count">2/3</h5>
+
+                <select name="interest_area" required>
+                    <option value="">Primary Area of Interest</option>
+                    <option>Corporate Structuring & Incorporation</option>
+                    <option>Regulatory Compliance & AML Strategy</option>
+                    <option>Financial Advisory & Tax Optimization</option>
+                    <option>Legal Risk & Contract Management</option>
+                    <option>Secretarial & Notarial Services</option>
+                    <option>Operations & Process Engineering</option>
+                    <option>Sales, Marketing & Market Entry</option>
+                    <option>HR & Talent Frameworks</option>
+                </select>
+
+                <textarea name="challenge"
+                    placeholder="What is the most pressing challenge your organization is facing today?"
+                    required></textarea>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary prev-btn">Back</button>
+                    <button type="button" class="btn-next">Next</button>
+                </div>
+            </div>
+
+            <!-- ================= PART C ================= -->
+            <div class="form-step">
+                <h3>Part C: Roadmap & Logistics</h3>
+                 <h5 class="form-step-count">3/3</h5>
+                <textarea name="short_term"
+                    placeholder="Short-term milestone (Next 6 months)?"></textarea>
+
+                <textarea name="long_term"
+                    placeholder="Long-term vision (1-3 years)?"></textarea>
+
+                <select name="urgency" required>
+                    <option value="">Urgency</option>
+                    <option>Immediate</option>
+                    <option>1 Month</option>
+                    <option>Planning</option>
+                </select>
+
+                <select name="referral">
+                    <option value="">How did you hear about us?</option>
+                    <option>LinkedIn</option>
+                    <option>Personal Referral</option>
+                    <option>Search Engine (Google)</option>
+                    <option>Industry Event / Seminar</option>
+                    <option>Other</option>
+                </select>
+
+                <div class="button-group">
+                    <button type="button" class="btn-secondary prev-btn">Back</button>
+                    <button type="submit" class="btn-primary">Submit & Schedule</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+    <div class="container center">
+        <p>© 2026 Axiom Global. All rights reserved. | Colombo, Sri Lanka.</p>
+        <p class="disclaimer">
+        Axiom Global is a corporate advisory and consultancy firm. We provide strategic, operational,
+         and regulatory guidance. Please note that Axiom Global does not operate as a law firm and does
+          not provide legal representation or legal advice as a firm of attorneys-at-law. Engagement with
+           our firm is strictly on a consultancy basis. Submission of this form does not create a consultant-client relationship.
+        </p>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
