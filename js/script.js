@@ -33,58 +33,79 @@
         link.addEventListener('click', closeMobileMenu);
     });
 
-    // ========== MULTI-STEP FORM ==========
-    let currentStep = 1;
-    const totalSteps = 3;
-    const progress = document.getElementById('formProgress');
+    // ========== CUSTOM ALERT ==========
+const customAlert = document.getElementById('customAlert');
+const customAlertMsg = document.getElementById('customAlertMsg');
+const customAlertClose = document.getElementById('customAlertClose');
 
-    function updateProgress() {
-        let percent = (currentStep / totalSteps) * 100;
-        progress.style.width = percent + '%';
-    }
+function showAlert(message) {
+    customAlertMsg.textContent = message;
+    customAlert.classList.add('active');
+}
 
-    window.nextStep = function(step) {
-        if (step === 1) {
-            // simple validation for step1 (just check required fields)
-            let inputs = document.querySelectorAll('#step1 [required]');
-            for (let inp of inputs) {
-                if (!inp.value.trim()) {
-                    alert('Please fill all required fields in Part A');
-                    return;
-                }
+function closeAlert() {
+    customAlert.classList.remove('active');
+}
+
+customAlertClose.addEventListener('click', closeAlert);
+
+// close if clicking outside the box
+customAlert.addEventListener('click', function(e) {
+    if (e.target === customAlert) closeAlert();
+});
+
+// close on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeAlert();
+});
+
+// ========== MULTI-STEP FORM ==========
+let currentStep = 1;
+const totalSteps = 3;
+const progress = document.getElementById('formProgress');
+
+function updateProgress() {
+    let percent = (currentStep / totalSteps) * 100;
+    progress.style.width = percent + '%';
+}
+
+window.nextStep = function(step) {
+    if (step === 1) {
+        let inputs = document.querySelectorAll('#step1 [required]');
+        for (let inp of inputs) {
+            if (!inp.value.trim()) {
+                showAlert('Please fill all required fields in Part A before continuing.');
+                return;
             }
         }
-        if (step === 2) {
-            let inputs = document.querySelectorAll('#step2 [required]');
-            for (let inp of inputs) {
-                if (!inp.value.trim()) {
-                    alert('Please fill all required fields in Part B');
-                    return;
-                }
+    }
+    if (step === 2) {
+        let inputs = document.querySelectorAll('#step2 [required]');
+        for (let inp of inputs) {
+            if (!inp.value.trim()) {
+                showAlert('Please fill all required fields in Part B before continuing.');
+                return;
             }
         }
-        // move to next step
-        document.getElementById('step' + step).classList.remove('active');
-        currentStep = step + 1;
-        document.getElementById('step' + currentStep).classList.add('active');
-        updateProgress();
-    
     }
+    document.getElementById('step' + step).classList.remove('active');
+    currentStep = step + 1;
+    document.getElementById('step' + currentStep).classList.add('active');
+    updateProgress();
+}
 
-    window.prevStep = function(step) {
-        document.getElementById('step' + step).classList.remove('active');
-        currentStep = step - 1;
-        document.getElementById('step' + currentStep).classList.add('active');
-        updateProgress();
-    }
+window.prevStep = function(step) {
+    document.getElementById('step' + step).classList.remove('active');
+    currentStep = step - 1;
+    document.getElementById('step' + currentStep).classList.add('active');
+    updateProgress();
+}
 
-    // Form submit alert (just for demo)
-    document.getElementById('multiStepForm').addEventListener('submit', function(e) {
-        // prevent actual submit for demo, but you can remove if using real action
-        e.preventDefault();
-        alert('Form submitted (demo). In production, data would go to submit.php');
-        // you can keep e.preventDefault() or remove to allow real POST
-    });
+// Form submit
+document.getElementById('multiStepForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    showAlert('Form submitted successfully! We will be in touch within 24 hours.');
+});
 
     // ========== REVEAL ON SCROLL (simple) ==========
     const reveals = document.querySelectorAll('.reveal');

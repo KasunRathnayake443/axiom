@@ -61,8 +61,15 @@
             From regulatory compliance to financial health, we bridge the gap between
             where your business is and where it needs to be.
         </p>
-        <a href="#contact" class="btn-primary">
+        <a href="#contact" class="btn-primary hero-cta">
             Book Your Free 20-Minute Strategy Session
+        </a>
+        <a href="#contact" class="hero-cta-mobile">
+            Book Your Free 20-Minute Strategy Session
+            <span class="hero-cta-arrows">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
         </a>
     </div>
 </section>
@@ -380,6 +387,23 @@
         </div>
     </div>
 </footer>
+
+
+<!-- Custom Alert Modal -->
+<div id="customAlert" class="custom-alert-overlay">
+    <div class="custom-alert-box">
+        <div class="custom-alert-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+        </div>
+        <h4 class="custom-alert-title">Required Fields Missing</h4>
+        <p class="custom-alert-msg" id="customAlertMsg">Please fill all required fields before continuing.</p>
+        <button class="btn-primary custom-alert-btn" id="customAlertClose">Got it</button>
+    </div>
+</div>
 
 <script src="js/script.js"></script>
 </body>

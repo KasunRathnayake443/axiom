@@ -2,6 +2,7 @@
 
 html {
         scroll-behavior: smooth;
+         overflow-x: hidden;
     }
     * {
         margin: 0;
@@ -16,6 +17,7 @@ html {
         line-height: 1.6;
         transition: background-color 0.3s, color 0.3s;
         scroll-behavior: smooth;
+        overflow-x: hidden;
     }
 
     :root {
@@ -360,6 +362,73 @@ html {
 body.dark .hero-content h1 { color: #eef2f8; }
 body.dark .hero-content p  { color: #7a8ea8; }
 
+/* ── HERO CTA MOBILE VERSION ── */
+.hero-cta-mobile {
+    display: none;
+}
+
+@media (max-width: 800px) {
+
+    /* hide the real button on mobile */
+    .hero-content .hero-cta {
+        display: none !important;
+    }
+
+    /* show the text link instead */
+    .hero-cta-mobile {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        text-decoration: none;
+        color: var(--text-primary);
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-align: center;
+        margin: 0 auto;
+        transition: color 0.2s;
+        opacity: 0.85;
+    }
+
+    .hero-cta-mobile:hover {
+        color: var(--accent);
+        opacity: 1;
+    }
+
+    /* since hero is over dark image, force light text */
+    .hero .hero-cta-mobile {
+        color: rgba(255, 255, 255, 0.8);
+    }
+    .hero .hero-cta-mobile:hover {
+        color: #ffffff;
+    }
+
+    .hero-cta-arrows {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 4px;
+        gap: 0px;
+    }
+
+    .hero-cta-arrows svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+        animation: bounceCta 1.4s ease infinite;
+    }
+
+    .hero-cta-arrows svg:nth-child(2) {
+        animation-delay: 0.18s;
+        opacity: 0.5;
+    }
+
+    @keyframes bounceCta {
+        0%, 100% { transform: translateY(0);   opacity: 1; }
+        50%       { transform: translateY(4px); opacity: 0.6; }
+    }
+}
 /* ========== HERO RESPONSIVE ========== */
 @media (max-width: 800px) {
     .hero-content {
@@ -1289,4 +1358,87 @@ footer {
     .footer-top {
         padding: 52px 0 40px;
     }
+}
+
+
+/* ========== CUSTOM ALERT MODAL ========== */
+.custom-alert-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.custom-alert-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.custom-alert-box {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 44px 40px 36px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+    transform: translateY(18px) scale(0.97);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+    opacity: 0;
+}
+
+.custom-alert-overlay.active .custom-alert-box {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.custom-alert-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(0, 87, 179, 0.1);
+    border: 1px solid rgba(0, 87, 179, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.custom-alert-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--accent);
+}
+
+.custom-alert-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.custom-alert-msg {
+    font-size: 0.92rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 28px;
+    max-width: 100%;
+}
+
+.custom-alert-btn {
+    padding: 12px 36px;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    border-radius: 40px;
+    cursor: pointer;
 }
