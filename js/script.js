@@ -1,119 +1,134 @@
-document.addEventListener("DOMContentLoaded", function () {
+// ========== THEME TOGGLE ==========
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
 
-    /* ========================================= */
-    /* =============== HAMBURGER =============== */
-    /* ========================================= */
-
-const hamburger = document.getElementById("hamburger");
-const navMenu = document.getElementById("navMenu");
-const mobileOverlay = document.getElementById("mobileOverlay");
-
-// Toggle menu on hamburger click
-hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-    mobileOverlay.classList.toggle("active");
-    document.body.classList.toggle("menu-open");
-});
-
-// Close menu when clicking overlay
-mobileOverlay.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    navMenu.classList.remove("active");
-    mobileOverlay.classList.remove("active");
-    document.body.classList.remove("menu-open");
-});
-
-
-
-    /* ========================================= */
-    /* =============== THEME TOGGLE ============ */
-    /* ========================================= */
-
-    const themeToggle = document.getElementById("themeToggle");
-
-    themeToggle.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-    });
-
-    /* ========================================= */
-    /* =============== SCROLL REVEAL =========== */
-    /* ========================================= */
-
-    const revealElements = document.querySelectorAll(".reveal, .reveal-left, .reveal-right, .card");
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("active");
-            } else {
-                entry.target.classList.remove("active"); // works up & down
-            }
-        });
-    }, { threshold: 0.15 });
-
-    revealElements.forEach(el => {
-        observer.observe(el);
-    });
-
-    /* ========================================= */
-    /* ============ STAGGER CARD EFFECT ======== */
-    /* ========================================= */
-
-    const cards = document.querySelectorAll(".card");
-
-    cards.forEach((card, index) => {
-        card.style.transitionDelay = `${index * 0.1}s`;
-    });
-
-    /* ========================================= */
-    /* ============ MULTI STEP FORM ============ */
-    /* ========================================= */
-
-    const steps = document.querySelectorAll(".form-step");
-    const nextBtns = document.querySelectorAll(".btn-next");
-    const prevBtns = document.querySelectorAll(".prev-btn");
-    const progress = document.querySelector(".progress");
-
-    let currentStep = 0;
-
-    function updateProgress() {
-        const percent = ((currentStep + 1) / steps.length) * 100;
-        progress.style.width = percent + "%";
+    // Check local storage
+    if (localStorage.getItem('theme') === 'dark') {
+        body.classList.add('dark');
     }
 
-    function showStep(index, direction) {
-        steps.forEach((step, i) => {
-            step.classList.remove("active", "exit-left", "exit-right");
+    themeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark');
+        localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+    });
 
-            if (i === index) {
-                step.classList.add("active");
-            } else if (i < index) {
-                step.classList.add(direction === "next" ? "exit-left" : "exit-right");
-            }
-        });
+    // ========== MOBILE MENU ==========
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    const overlay = document.getElementById('mobileOverlay');
 
-        updateProgress();
+    function closeMobileMenu() {
+        navMenu.classList.remove('active');
+        overlay.classList.remove('active');
     }
 
-    nextBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                showStep(currentStep, "next");
-            }
-        });
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu.classList.toggle('active');
+        overlay.classList.toggle('active');
     });
 
-    prevBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep, "prev");
-            }
-        });
+    overlay.addEventListener('click', closeMobileMenu);
+    document.querySelectorAll('#navMenu .nav-link').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
     });
 
+    // ========== CUSTOM ALERT ==========
+const customAlert = document.getElementById('customAlert');
+const customAlertMsg = document.getElementById('customAlertMsg');
+const customAlertClose = document.getElementById('customAlertClose');
+
+function showAlert(message) {
+    customAlertMsg.textContent = message;
+    customAlert.classList.add('active');
+}
+
+function closeAlert() {
+    customAlert.classList.remove('active');
+}
+
+customAlertClose.addEventListener('click', closeAlert);
+
+// close if clicking outside the box
+customAlert.addEventListener('click', function(e) {
+    if (e.target === customAlert) closeAlert();
+});
+
+// close on Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeAlert();
+});
+
+// ========== MULTI-STEP FORM ==========
+let currentStep = 1;
+const totalSteps = 3;
+const progress = document.getElementById('formProgress');
+
+function updateProgress() {
+    let percent = (currentStep / totalSteps) * 100;
+    progress.style.width = percent + '%';
+}
+
+window.nextStep = function(step) {
+    if (step === 1) {
+        let inputs = document.querySelectorAll('#step1 [required]');
+        for (let inp of inputs) {
+            if (!inp.value.trim()) {
+                showAlert('Please fill all required fields in Part A before continuing.');
+                return;
+            }
+        }
+    }
+    if (step === 2) {
+        let inputs = document.querySelectorAll('#step2 [required]');
+        for (let inp of inputs) {
+            if (!inp.value.trim()) {
+                showAlert('Please fill all required fields in Part B before continuing.');
+                return;
+            }
+        }
+    }
+    document.getElementById('step' + step).classList.remove('active');
+    currentStep = step + 1;
+    document.getElementById('step' + currentStep).classList.add('active');
     updateProgress();
+}
 
+window.prevStep = function(step) {
+    document.getElementById('step' + step).classList.remove('active');
+    currentStep = step - 1;
+    document.getElementById('step' + currentStep).classList.add('active');
+    updateProgress();
+}
+
+// Form submit
+document.getElementById('multiStepForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    showAlert('Form submitted successfully! We will be in touch within 24 hours.');
 });
+
+    // ========== REVEAL ON SCROLL (simple) ==========
+    const reveals = document.querySelectorAll('.reveal');
+    function checkReveal() {
+        for (let el of reveals) {
+            const windowHeight = window.innerHeight;
+            const revealTop = el.getBoundingClientRect().top;
+            if (revealTop < windowHeight - 100) {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            } else {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+            }
+    
+    
+       }
+    }
+    // set initial style
+    reveals.forEach(el => {
+        el.style.transition = 'opacity 0.8s, transform 0.8s';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+    });
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', checkReveal);
