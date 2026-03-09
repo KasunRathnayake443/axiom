@@ -13,6 +13,12 @@
 </head>
 <body>
 
+    <!-- Scroll Progress Bar -->
+<div id="scrollProgress" class="scroll-progress"></div>
+<!-- Custom Cursor -->
+<div id="cursorDot" class="cursor-dot"></div>
+<div id="cursorRing" class="cursor-ring"></div>
+
 <!-- HEADER -->
 <header class="header">
     <div class="container nav">
@@ -126,6 +132,18 @@
     </div>
 </section>
 
+<!-- QUOTE 1 — Minimal centered style -->
+<div class="quote-strip quote-style-one reveal">
+    <div class="container quote-one-inner">
+        <div class="quote-one-line"></div>
+        <blockquote class="quote-one-text">
+            The strength of the team is each individual member.<br>The strength of each member is the team.
+        </blockquote>
+        <cite class="quote-one-cite">Phil Jackson</cite>
+        <div class="quote-one-line"></div>
+    </div>
+</div>
+
 <!-- EXPERTISE -->
 <section id="expertise" class="section reveal">
     <span class="section-watermark">Expertise</span>
@@ -183,6 +201,23 @@
 
     </div>
 </section>
+
+
+<!-- QUOTE 2 — Bold dark card style -->
+<div class="quote-strip quote-style-two reveal">
+    <div class="container quote-two-inner">
+        <div class="quote-two-card">
+            <span class="quote-two-mark">"</span>
+            <blockquote class="quote-two-text">
+                Plans are only good intentions unless they immediately degenerate into hard work.
+            </blockquote>
+            <div class="quote-two-footer">
+                <div class="quote-two-bar"></div>
+                <cite class="quote-two-cite">Peter Drucker</cite>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <!-- CONTACT -->
@@ -402,6 +437,29 @@
         <h4 class="custom-alert-title">Required Fields Missing</h4>
         <p class="custom-alert-msg" id="customAlertMsg">Please fill all required fields before continuing.</p>
         <button class="btn-primary custom-alert-btn" id="customAlertClose">Got it</button>
+    </div>
+</div>
+
+<!-- Sticky Floating CTA -->
+<a href="#contact" id="floatingCTA" class="floating-cta">
+    Book Free Session
+</a>
+
+<!-- Back to Top -->
+<button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"/>
+    </svg>
+</button>
+
+<!-- Page Loading Screen -->
+<div id="pageLoader" class="page-loader">
+    <div class="loader-content">
+        <div class="loader-logo">AXIOM</div>
+        <div class="loader-tagline">Strategic Clarity. Sustainable Growth.</div>
+        <div class="loader-bar-wrap">
+            <div class="loader-bar"></div>
+        </div>
     </div>
 </div>
 
