@@ -160,31 +160,28 @@ document.getElementById('multiStepForm').addEventListener('submit', function(e) 
     showAlert('Form submitted successfully! We will be in touch within 24 hours.');
 });
 
-    // ========== REVEAL ON SCROLL (simple) ==========
-    const reveals = document.querySelectorAll('.reveal');
-    function checkReveal() {
-        for (let el of reveals) {
-            const windowHeight = window.innerHeight;
-            const revealTop = el.getBoundingClientRect().top;
-            if (revealTop < windowHeight - 100) {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            } else {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(20px)';
-            }
-    
-    
-       }
-    }
-    // set initial style
-    reveals.forEach(el => {
-        el.style.transition = 'opacity 0.8s, transform 0.8s';
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
+// ========== REVEAL ON SCROLL ==========
+const reveals = document.querySelectorAll('.reveal');
+
+reveals.forEach(el => {
+    el.style.transition = 'opacity 0.8s, transform 0.8s';
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+});
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        } else {
+            entry.target.style.opacity = '0';
+            entry.target.style.transform = 'translateY(20px)';
+        }
     });
-    window.addEventListener('scroll', checkReveal);
-    window.addEventListener('load', checkReveal);
+}, { threshold: 0.1 });
+
+reveals.forEach(el => revealObserver.observe(el));
 
 
     // ========== SCROLL PROGRESS BAR ==========
@@ -235,9 +232,81 @@ const cardObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add('card-visible');
-            cardObserver.unobserve(entry.target);
+        } else {
+            entry.target.classList.remove('card-visible');
         }
     });
 }, { threshold: 0.15 });
 
 cards.forEach(card => cardObserver.observe(card));
+
+
+// ========== HERO CAROUSEL ==========
+const slides       = document.querySelectorAll('.hero-slide');
+const dots         = document.querySelectorAll('.carousel-dot');
+const heroHeading  = document.getElementById('heroHeading');
+const prevBtn      = document.getElementById('carouselPrev');
+const nextBtn      = document.getElementById('carouselNext');
+
+let currentSlide   = 0;
+let carouselTimer  = null;
+const SLIDE_DELAY  = 5000;
+
+function goToSlide(index) {
+    // remove active from current
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+
+    // update index
+    currentSlide = (index + slides.length) % slides.length;
+
+    // animate heading out
+    heroHeading.classList.add('heading-exit');
+
+    setTimeout(() => {
+        // swap heading content
+        heroHeading.innerHTML = slides[currentSlide].dataset.heading;
+
+        // animate heading in
+        heroHeading.classList.remove('heading-exit');
+        heroHeading.classList.add('heading-enter');
+
+        setTimeout(() => {
+            heroHeading.classList.remove('heading-enter');
+        }, 500);
+    }, 500);
+
+    // activate new slide + dot
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+    goToSlide(currentSlide + 1);
+}
+function prevSlide() {
+    goToSlide(currentSlide - 1);
+}
+
+function startAutoPlay() {
+    carouselTimer = setInterval(nextSlide, SLIDE_DELAY);
+}
+function resetAutoPlay() {
+    clearInterval(carouselTimer);
+    startAutoPlay();
+}
+
+// arrow buttons
+nextBtn.addEventListener('click', () => { nextSlide(); resetAutoPlay(); });
+prevBtn.addEventListener('click', () => { prevSlide(); resetAutoPlay(); });
+
+// dot buttons
+dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+        goToSlide(i);
+        resetAutoPlay();
+    });
+});
+
+// start
+startAutoPlay();

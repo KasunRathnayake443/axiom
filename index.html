@@ -54,30 +54,101 @@
 <div id="mobileOverlay" class="mobile-overlay"></div>
 
 <!-- HERO -->
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-bg">
-        <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=1900&auto=format&fit=crop&q=85" alt="Modern corporate office">
+
+    <!-- CAROUSEL SLIDES -->
+    <div class="hero-slides">
+        <div class="hero-slide active" data-heading="Strategic Clarity.<br><em>Sustainable Growth.</em>">
+            <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=1900&auto=format&fit=crop&q=85" alt="Modern corporate office">
+        </div>
+        <div class="hero-slide" data-heading="Navigate Complexity.<br><em>Lead With Confidence.</em>">
+            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1900&auto=format&fit=crop&q=85" alt="Corporate skyline">
+        </div>
+        <div class="hero-slide" data-heading="Build Frameworks.<br><em>Scale With Purpose.</em>">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1900&auto=format&fit=crop&q=85" alt="Professional workspace">
+        </div>
     </div>
+
     <div class="hero-overlay"></div>
-    <div class="container hero-content reveal">
-        <span class="hero-eyebrow">360° Business Advisory</span>
-        <h1>Strategic Clarity.<br><em>Sustainable Growth.</em></h1>
-        <p>
-            Axiom Global provides the advisory backbone that SMEs need to scale.
-            From regulatory compliance to financial health, we bridge the gap between
-            where your business is and where it needs to be.
-        </p>
-        <a href="#contact" class="btn-primary hero-cta">
-            Book Your Free 20-Minute Strategy Session
-        </a>
-        <a href="#contact" class="hero-cta-mobile">
-            Book Your Free 20-Minute Strategy Session
-            <span class="hero-cta-arrows">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-        </a>
+
+    <!-- decorative vertical line -->
+    <div class="hero-vert-line"></div>
+
+    <div class="container">
+        <div class="hero-content reveal">
+
+            <!-- eyebrow -->
+            <div class="hero-eyebrow">
+                <span class="hero-eyebrow-dot"></span>
+                360° Business Advisory
+                <span class="hero-eyebrow-tag">Colombo, Sri Lanka</span>
+            </div>
+
+           <!-- heading -->
+            <h1 id="heroHeading">Strategic Clarity.<br><em>Sustainable Growth.</em></h1>
+
+            <!-- bottom row: text + CTA -->
+            <div class="hero-bottom">
+                <p>
+                    Axiom Global provides the advisory backbone that SMEs need
+                    to scale. From regulatory compliance to financial health,
+                    we bridge the gap between where your business is and
+                    where it needs to be.
+                </p>
+                <div class="hero-cta-wrap">
+                    <a href="#contact" class="btn-primary hero-cta">
+                        Book Free Strategy Session
+                    </a>
+                    <a href="#about" class="hero-link">
+                        Learn more
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- mobile CTA -->
+            <a href="#contact" class="hero-cta-mobile">
+                Book Your Free 20-Minute Strategy Session
+                <span class="hero-cta-arrows">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+            </a>
+
+        </div>
     </div>
+
+ <!-- scroll indicator -->
+    <div class="hero-scroll-hint">
+        <div class="hero-scroll-mouse">
+            <div class="hero-scroll-dot"></div>
+        </div>
+        <span>Scroll</span>
+    </div>
+
+    <!-- CAROUSEL CONTROLS -->
+    <div class="hero-carousel-controls">
+        <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Previous slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"/>
+            </svg>
+        </button>
+        <div class="carousel-dots" id="carouselDots">
+            <button class="carousel-dot active" data-index="0"></button>
+            <button class="carousel-dot" data-index="1"></button>
+            <button class="carousel-dot" data-index="2"></button>
+        </div>
+        <button class="carousel-arrow carousel-next" id="carouselNext" aria-label="Next slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"/>
+            </svg>
+        </button>
+    </div>
+
 </section>
 
 
