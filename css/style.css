@@ -830,6 +830,42 @@ html {
     }
 }
 
+/* ========== PARALLAX SCROLL TRANSITIONS ========== */
+
+/* hero exit */
+.hero {
+    will-change: opacity, transform;
+}
+.hero-content {
+    will-change: opacity, transform;
+}
+.hero-slides {
+    will-change: transform;
+}
+
+/* about entrance */
+.about-section {
+    will-change: opacity, transform;
+}
+.about-text {
+    will-change: opacity, transform;
+}
+.about-image-wrap {
+    will-change: opacity, transform;
+}
+
+/* parallax will-change hints — quote 1 + expertise */
+.parallax-quote-1         { will-change: opacity, transform; }
+.parallax-expertise       { will-change: opacity, transform; }
+.parallax-expertise .grid { will-change: opacity, transform; }
+.parallax-expertise h2    { will-change: opacity, transform; }
+.parallax-strategy               { will-change: opacity, transform; }
+.parallax-strategy .strategy-image-wrap  { will-change: opacity, transform; }
+.parallax-strategy .strategy-text-block  { will-change: opacity, transform; }
+.parallax-quote-2                { will-change: opacity, transform; }
+.parallax-quote-2 .quote-two-card { will-change: opacity, transform; }
+
+
     /* ========== CARDS GRID ========== */
     /* ========== EXPERTISE SECTION ========== */
 #expertise {
