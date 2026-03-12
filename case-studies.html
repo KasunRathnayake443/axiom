@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Studies | Axiom Global</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/logo.png" type="image/x-icon">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/case-studies.css">
+</head>
+<body>
+
+<!-- Scroll Progress Bar -->
+<div id="scrollProgress" class="scroll-progress"></div>
+
+<!-- Custom Cursor -->
+<div id="cursorDot" class="cursor-dot"></div>
+<div id="cursorRing" class="cursor-ring"></div>
+
+<!-- HEADER -->
+<header class="header">
+    <div class="container nav">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/Gemini_Generated_Image_t7bomrt7bomrt7bo.png" alt="Axiom Global"
+                    onerror="this.src='https://placehold.co/120x48/1a1f2e/white?text=AXIOM'">
+            </a>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="navMenu">
+            <a href="index.html#about" class="nav-link">About</a>
+            <a href="index.html#expertise" class="nav-link">Expertise</a>
+            <a href="case-studies.html" class="nav-link" style="color: var(--accent);">Case Studies</a>
+            <a href="index.html#contact" class="nav-link">Contact</a>
+            <button id="themeToggle" class="theme-toggle">
+                <span class="icon sun">☀️</span>
+                <span class="icon moon">🌙</span>
+                <span class="toggle-circle"></span>
+            </button>
+        </nav>
+    </div>
+</header>
+<div id="mobileOverlay" class="mobile-overlay"></div>
+
+<!-- PAGE HERO -->
+<section class="cs-hero">
+    <div class="container cs-hero-inner">
+        <div class="cs-hero-eyebrow">Client Impact</div>
+        <h1>Case Studies &amp;<br>Real Results</h1>
+        <p>A curated look at how Axiom Global has helped businesses navigate complexity, achieve regulatory clarity, and build sustainable growth frameworks.</p>
+    </div>
+    <div class="cs-hero-watermark">Case Studies</div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="cs-filter-bar">
+    <div class="container cs-filter-inner">
+        <span class="cs-filter-label">Filter:</span>
+        <button class="cs-filter-btn active" data-filter="all">All</button>
+        <button class="cs-filter-btn" data-filter="compliance">Compliance &amp; AML</button>
+        <button class="cs-filter-btn" data-filter="finance">Financial Advisory</button>
+        <button class="cs-filter-btn" data-filter="operations">Operations</button>
+        <button class="cs-filter-btn" data-filter="legal">Legal &amp; Risk</button>
+        <button class="cs-filter-btn" data-filter="hr">HR &amp; Talent</button>
+    </div>
+</div>
+
+<!-- CASE STUDIES GRID -->
+<section class="cs-section">
+    <div class="container">
+        <div class="cs-grid" id="csGrid">
+
+            <!-- CARD 1 -->
+            <div class="cs-card" data-category="compliance" data-id="1">
+                <div class="cs-card-header">
+                    <div class="cs-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <div class="cs-card-meta">
+                        <span class="cs-card-tag">Compliance &amp; AML</span>
+                        <h3 class="cs-card-title">AML Framework Overhaul for a Mid-Tier Commercial Bank</h3>
+                    </div>
+                </div>
+                <div class="cs-card-body">
+                    <p class="cs-card-desc">A licensed commercial bank was facing regulatory scrutiny due to gaps in its Anti-Money Laundering controls. Axiom Global redesigned the end-to-end AML framework, training staff and implementing automated transaction monitoring.</p>
+                    <div class="cs-card-stats">
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">94%</span>
+                            <span class="cs-stat-label">Compliance Score</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">3mo</span>
+                            <span class="cs-stat-label">Turnaround</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">0</span>
+                            <span class="cs-stat-label">Regulatory Fines</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-card-footer">
+                    <span class="cs-card-client">Banking &amp; Financial Services</span>
+                    <span class="cs-read-more">Read More <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="cs-card" data-category="finance" data-id="2">
+                <div class="cs-card-header">
+                    <div class="cs-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="cs-card-meta">
+                        <span class="cs-card-tag">Financial Advisory</span>
+                        <h3 class="cs-card-title">Capital Restructuring for an Export-Oriented SME</h3>
+                    </div>
+                </div>
+                <div class="cs-card-body">
+                    <p class="cs-card-desc">An export business with LKR 280M in annual revenue was struggling with high-interest debt and inefficient capital allocation. Axiom Global restructured their debt portfolio and optimised working capital cycles, reducing financing costs significantly.</p>
+                    <div class="cs-card-stats">
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">38%</span>
+                            <span class="cs-stat-label">Cost Reduction</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">LKR 42M</span>
+                            <span class="cs-stat-label">Savings / Year</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">6mo</span>
+                            <span class="cs-stat-label">Timeline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-card-footer">
+                    <span class="cs-card-client">Import / Export &amp; Logistics</span>
+                    <span class="cs-read-more">Read More <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </div>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="cs-card" data-category="operations" data-id="3">
+                <div class="cs-card-header">
+                    <div class="cs-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                    </div>
+                    <div class="cs-card-meta">
+                        <span class="cs-card-tag">Operations</span>
+                        <h3 class="cs-card-title">Process Re-Engineering for a Retail Chain Scaling Operations</h3>
+                    </div>
+                </div>
+                <div class="cs-card-body">
+                    <p class="cs-card-desc">A retail chain expanding to 18 outlets was experiencing fulfilment bottlenecks and inventory discrepancies. Axiom Global mapped the end-to-end operational flow, eliminated redundancies, and implemented a centralised inventory control system.</p>
+                    <div class="cs-card-stats">
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">52%</span>
+                            <span class="cs-stat-label">Faster Fulfilment</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">18</span>
+                            <span class="cs-stat-label">Outlets Unified</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">4mo</span>
+                            <span class="cs-stat-label">Timeline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-card-footer">
+                    <span class="cs-card-client">Retail &amp; E-commerce</span>
+                    <span class="cs-read-more">Read More <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </div>
+            </div>
+
+            <!-- CARD 4 -->
+            <div class="cs-card" data-category="legal" data-id="4">
+                <div class="cs-card-header">
+                    <div class="cs-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </div>
+                    <div class="cs-card-meta">
+                        <span class="cs-card-tag">Legal &amp; Risk</span>
+                        <h3 class="cs-card-title">Contract Risk Audit for a Technology Services Company</h3>
+                    </div>
+                </div>
+                <div class="cs-card-body">
+                    <p class="cs-card-desc">A fast-growing IT services firm had accumulated over 60 active client contracts with inconsistent clauses, undefined liability caps and no dispute resolution framework. Axiom Global conducted a full contract risk audit and standardised the entire agreement architecture.</p>
+                    <div class="cs-card-stats">
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">63</span>
+                            <span class="cs-stat-label">Contracts Reviewed</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">100%</span>
+                            <span class="cs-stat-label">Liability Capped</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">8wk</span>
+                            <span class="cs-stat-label">Timeline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-card-footer">
+                    <span class="cs-card-client">Technology &amp; Software</span>
+                    <span class="cs-read-more">Read More <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </div>
+            </div>
+
+            <!-- CARD 5 -->
+            <div class="cs-card" data-category="hr" data-id="5">
+                <div class="cs-card-header">
+                    <div class="cs-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="cs-card-meta">
+                        <span class="cs-card-tag">HR &amp; Talent</span>
+                        <h3 class="cs-card-title">HR Infrastructure Build for a Scaling Hospitality Group</h3>
+                    </div>
+                </div>
+                <div class="cs-card-body">
+                    <p class="cs-card-desc">A hospitality group expanding from 2 to 7 properties had no formal HR policies, onboarding framework, or performance management system. Axiom Global designed a full HR infrastructure from scratch, aligned with local labour law.</p>
+                    <div class="cs-card-stats">
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">340+</span>
+                            <span class="cs-stat-label">Staff Covered</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">61%</span>
+                            <span class="cs-stat-label">Turnover Drop</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">5mo</span>
+                            <span class="cs-stat-label">Timeline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-card-footer">
+                    <span class="cs-card-client">Hospitality &amp; Tourism</span>
+                    <span class="cs-read-more">Read More <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </div>
+            </div>
+
+            <!-- CARD 6 -->
+            <div class="cs-card" data-category="compliance" data-id="6">
+                <div class="cs-card-header">
+                    <div class="cs-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <div class="cs-card-meta">
+                        <span class="cs-card-tag">Compliance &amp; AML</span>
+                        <h3 class="cs-card-title">Exchange Control Compliance for a Multi-Currency Business</h3>
+                    </div>
+                </div>
+                <div class="cs-card-body">
+                    <p class="cs-card-desc">An importer-exporter operating across five currencies was unknowingly breaching exchange control regulations, creating significant legal exposure. Axiom Global conducted a compliance diagnostic and restructured all foreign currency flows within regulatory parameters.</p>
+                    <div class="cs-card-stats">
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">5</span>
+                            <span class="cs-stat-label">Currencies Managed</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">100%</span>
+                            <span class="cs-stat-label">Breach Resolved</span>
+                        </div>
+                        <div class="cs-stat">
+                            <span class="cs-stat-value">6wk</span>
+                            <span class="cs-stat-label">Timeline</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cs-card-footer">
+                    <span class="cs-card-client">Import / Export &amp; Logistics</span>
+                    <span class="cs-read-more">Read More <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </div>
+            </div>
+
+            <!-- empty state -->
+            <div class="cs-empty" id="csEmpty">
+                <p>No case studies found for this category.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== MODAL ========== -->
+<div class="cs-modal-overlay" id="csModalOverlay">
+    <div class="cs-modal" id="csModal">
+        <div class="cs-modal-close">
+            <button class="cs-modal-close-btn" id="csModalClose" aria-label="Close">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="cs-modal-content" id="csModalContent">
+            <!-- populated by JS -->
+        </div>
+    </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-top">
+        <div class="container footer-grid">
+            <div class="footer-col footer-brand">
+                <img src="assets/Gemini_Generated_Image_t7bomrt7bomrt7bo.png" alt="Axiom Global"
+                    onerror="this.src='https://placehold.co/120x48/ffffff/ffffff?text=AXIOM'"
+                    class="footer-logo">
+                <p class="footer-tagline">Strategic clarity and sustainable growth for businesses ready to scale.</p>
+                <div class="footer-socials">
+                    <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452H17.21v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.987V9h3.102v1.561h.044c.432-.816 1.489-1.676 3.065-1.676 3.278 0 3.883 2.157 3.883 4.964v6.603zM5.337 7.433a1.8 1.8 0 1 1 0-3.601 1.8 1.8 0 0 1 0 3.601zm1.554 13.019H3.782V9h3.109v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.696 4.533-4.696 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="social-link">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.334 3.608 1.308.975.975 1.246 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.062 1.366-.334 2.633-1.308 3.608-.975.975-2.242 1.246-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.062-2.633-.334-3.608-1.308-.975-.975-1.246-2.242-1.308-3.608C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.062-1.366.334-2.633 1.308-3.608C4.516 2.497 5.783 2.225 7.15 2.163 8.416 2.105 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.197.157 3.355.673 2.014 2.014.673 3.355.157 5.197.072 7.052.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.085 1.855.601 3.697 1.942 5.038 1.341 1.341 3.183 1.857 5.038 1.942C8.332 23.986 8.741 24 12 24s3.668-.014 4.948-.072c1.855-.085 3.697-.601 5.038-1.942 1.341-1.341 1.857-3.183 1.942-5.038.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.085-1.855-.601-3.697-1.942-5.038C20.645.673 18.803.157 16.948.072 15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#expertise">Our Expertise</a></li>
+                    <li><a href="case-studies.html">Case Studies</a></li>
+                    <li><a href="index.html#contact">Book a Consultation</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#expertise">Regulatory &amp; Compliance</a></li>
+                    <li><a href="index.html#expertise">Financial Advisory</a></li>
+                    <li><a href="index.html#expertise">Legal Risk Management</a></li>
+                    <li><a href="index.html#expertise">HR Advisory</a></li>
+                    <li><a href="index.html#expertise">Tax Advisory</a></li>
+                    <li><a href="index.html#expertise">Operations</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-heading">Get In Touch</h4>
+                <ul class="footer-contact-list">
+                    <li>
+                        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></span>
+                        <span>+94 11 234 5678</span>
+                    </li>
+                    <li>
+                        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
+                        <span>info@axiomglobal.com</span>
+                    </li>
+                    <li>
+                        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+                        <span>No. 45, Galle Road,<br>Colombo 03, Sri Lanka.</span>
+                    </li>
+                    <li>
+                        <span class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+                        <span>Mon – Fri: 9:00 AM – 6:00 PM</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+            <p>© 2026 Axiom Global. All rights reserved. Powered by <a class="beesmart-link" href="https://beesmart.ltd/" target="_blank">BeeSmart Ltd.</a></p>
+            <p class="disclaimer">Axiom Global is a corporate advisory and consultancy firm. We provide strategic, operational, and regulatory guidance. Axiom Global does not operate as a law firm and does not provide legal representation or legal advice as a firm of attorneys-at-law. Engagement is strictly on a consultancy basis.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top -->
+<button id="backToTop" class="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// ========== CASE STUDY DATA (full modal content) ==========
+const caseStudies = {
+    1: {
+        tag: 'Compliance & AML',
+        title: 'AML Framework Overhaul for a Mid-Tier Commercial Bank',
+        client: 'Banking & Financial Services · Colombo, Sri Lanka',
+        stats: [
+            { value: '94%', label: 'Compliance Score' },
+            { value: '3 Months', label: 'Turnaround Time' },
+            { value: 'Zero', label: 'Regulatory Fines Post-Engagement' }
+        ],
+        challenge: `The client, a mid-tier licensed commercial bank, had received a formal notice from the regulatory authority citing material deficiencies in its Anti-Money Laundering (AML) controls. Key gaps included inadequate customer due diligence (CDD) processes, absence of a risk-based approach to transaction monitoring, and a compliance team with limited specialist training.
+
+The bank faced the risk of licence suspension if a satisfactory remediation plan was not submitted within 90 days.`,
+        approach: [
+            'Conducted a full diagnostic audit of existing AML/CFT policies, procedures and controls against regulatory requirements and FATF recommendations.',
+            'Redesigned the Customer Due Diligence (CDD) and Enhanced Due Diligence (EDD) frameworks with tiered risk classification.',
+            'Introduced a rule-based transaction monitoring matrix calibrated to the bank\'s product and customer risk profile.',
+            'Delivered a structured 3-day training programme for 48 compliance, operations and relationship management staff.',
+            'Drafted and submitted the regulatory remediation plan, liaising directly with the supervisory authority on behalf of the client.'
+        ],
+        outcome: `Within 11 weeks, the bank achieved a compliance score of 94% on the regulatory re-assessment — well above the threshold required for case closure. All identified deficiencies were formally resolved, and no punitive action was taken. The bank subsequently engaged Axiom Global on a retainer basis for ongoing compliance monitoring.`,
+    },
+    2: {
+        tag: 'Financial Advisory',
+        title: 'Capital Restructuring for an Export-Oriented SME',
+        client: 'Import / Export & Logistics · Western Province',
+        stats: [
+            { value: '38%', label: 'Reduction in Financing Costs' },
+            { value: 'LKR 42M', label: 'Annual Savings Achieved' },
+            { value: '6 Months', label: 'Full Restructuring Timeline' }
+        ],
+        challenge: `The client was a well-established export business generating approximately LKR 280M in annual revenue. Despite healthy top-line performance, the business was consistently cash-flow negative due to a poorly structured debt portfolio — including three high-interest overdraft facilities and two term loans with misaligned repayment schedules.
+
+The founding director approached Axiom Global after the business narrowly avoided a payment default during a seasonal revenue dip.`,
+        approach: [
+            'Performed a full financial health diagnostic covering cash conversion cycles, debt service coverage ratios, and working capital utilisation.',
+            'Mapped all existing credit facilities against revenue seasonality to identify structural mismatches.',
+            'Negotiated with three lending institutions to restructure repayment terms, consolidate facilities and reduce blended interest rates.',
+            'Introduced a 13-week rolling cash flow model as a permanent management tool for the finance team.',
+            'Advised on invoice financing arrangements to smooth export receivable cycles.'
+        ],
+        outcome: `The restructuring reduced annual financing costs by 38%, translating to approximately LKR 42M in savings per year. The business moved from a cash-flow deficit to a consistent surplus within two quarters. The founding director reported that the business had its strongest six-month performance in four years following the engagement.`,
+    },
+    3: {
+        tag: 'Operations',
+        title: 'Process Re-Engineering for a Retail Chain Scaling Operations',
+        client: 'Retail & E-commerce · Multiple Locations, Sri Lanka',
+        stats: [
+            { value: '52%', label: 'Faster Order Fulfilment' },
+            { value: '18 Outlets', label: 'Unified Under One System' },
+            { value: '4 Months', label: 'Implementation Timeline' }
+        ],
+        challenge: `A fast-growing retail chain had expanded from 4 to 18 outlets within 24 months. The rapid growth had outpaced the company's operational infrastructure — each outlet operated on ad-hoc processes, inventory was managed in disconnected spreadsheets, and fulfilment errors were causing a measurable loss in customer satisfaction and repeat business.
+
+The CEO identified that without operational standardisation, further expansion would be untenable.`,
+        approach: [
+            'Conducted an operational audit across 6 representative outlets to baseline current processes, error rates and fulfilment times.',
+            'Developed a standardised operations playbook covering receiving, storage, picking, packing and dispatch across all outlet types.',
+            'Mapped and eliminated 14 identified redundant process steps across the supply chain.',
+            'Specified and oversaw the implementation of a centralised inventory management system integrated across all 18 outlets.',
+            'Trained outlet managers and area supervisors on the new operating model and KPI reporting framework.'
+        ],
+        outcome: `Post-implementation, average order fulfilment time dropped by 52% across the network. Inventory discrepancy rates fell from 11.4% to under 1.8%. The standardised playbook also significantly reduced onboarding time for new outlet staff. The client subsequently commissioned Axiom Global to develop the operational framework for their planned e-commerce expansion.`,
+    },
+    4: {
+        tag: 'Legal & Risk',
+        title: 'Contract Risk Audit for a Technology Services Company',
+        client: 'Technology & Software · Colombo, Sri Lanka',
+        stats: [
+            { value: '63', label: 'Contracts Reviewed & Reclassified' },
+            { value: '100%', label: 'Contracts With Defined Liability Caps' },
+            { value: '8 Weeks', label: 'Full Audit & Remediation Timeline' }
+        ],
+        challenge: `A technology services company with rapid enterprise client growth had accumulated 63 active client contracts — many of which had been signed without legal review, contained inconsistent service level agreements, and had no defined liability caps or intellectual property ownership clauses.
+
+The risk was crystallised when a major client threatened litigation over a disputed deliverable, exposing the company to potentially unlimited liability under the existing contract language.`,
+        approach: [
+            'Conducted a full audit of all 63 contracts, classifying each by risk profile: high, medium and low.',
+            'Identified 21 high-risk agreements with missing or inadequate liability, IP and dispute resolution provisions.',
+            'Drafted a standardised Master Services Agreement (MSA) template and Statement of Work (SOW) framework aligned with industry best practice.',
+            'Negotiated amendments to the 21 high-risk contracts in collaboration with the company\'s key account managers.',
+            'Delivered a contract governance protocol including approval workflows and periodic review schedules.'
+        ],
+        outcome: `All 63 contracts were remediated with defined liability caps, clear IP ownership and structured dispute resolution mechanisms. The pending litigation threat was resolved through contract renegotiation without legal proceedings. The client\'s new MSA template has since been used for all new enterprise engagements, materially reducing legal exposure going forward.`,
+    },
+    5: {
+        tag: 'HR & Talent',
+        title: 'HR Infrastructure Build for a Scaling Hospitality Group',
+        client: 'Hospitality & Tourism · Southern & Western Province',
+        stats: [
+            { value: '340+', label: 'Employees Covered by New Framework' },
+            { value: '61%', label: 'Reduction in Annual Staff Turnover' },
+            { value: '5 Months', label: 'Full Implementation Timeline' }
+        ],
+        challenge: `A boutique hospitality group had grown from 2 to 7 properties within three years, bringing its headcount to over 340 employees across multiple roles and locations. The rapid expansion had occurred without any formalised HR infrastructure — no employment contracts were standardised, no disciplinary framework existed, and there was no performance management system in place.
+
+Staff turnover had reached 48% annually, driven largely by inconsistent management practices and unclear role expectations.`,
+        approach: [
+            'Conducted an HR diagnostic across all 7 properties, benchmarking against local labour law requirements and hospitality industry standards.',
+            'Designed a complete Employee Handbook covering employment terms, code of conduct, grievance procedures and benefits entitlements.',
+            'Developed role-specific job descriptions, KPI frameworks and performance review templates for all 22 identified job families.',
+            'Created a structured onboarding programme reducing average time-to-productivity for new hires.',
+            'Trained all property managers and department heads on the new performance management and disciplinary procedures.'
+        ],
+        outcome: `Within 12 months of implementation, annual staff turnover had fallen from 48% to 18.7% — a reduction of 61%. Employee satisfaction scores (measured via an internal survey introduced as part of the engagement) reached 74% — a baseline that the Group HR Manager described as "transformational." The Group has since retained Axiom Global to support its continued expansion into two additional properties.`,
+    },
+    6: {
+        tag: 'Compliance & AML',
+        title: 'Exchange Control Compliance for a Multi-Currency Business',
+        client: 'Import / Export & Logistics · Colombo, Sri Lanka',
+        stats: [
+            { value: '5', label: 'Foreign Currencies Restructured' },
+            { value: '100%', label: 'Regulatory Breaches Resolved' },
+            { value: '6 Weeks', label: 'Compliance Restoration Timeline' }
+        ],
+        challenge: `An established importer-exporter operating across USD, EUR, GBP, SGD and AED had been managing foreign currency flows through a combination of offshore accounts and informal settlement arrangements. A routine bank compliance review flagged the structure as potentially non-compliant with exchange control regulations, creating significant legal exposure for both the company and its directors personally.
+
+The client had no specialist exchange control advisor and was unaware that several of its longstanding practices constituted regulatory breaches.`,
+        approach: [
+            'Conducted a detailed diagnostic of all foreign currency inflows, outflows and account structures against applicable exchange control regulations.',
+            'Identified 4 specific regulatory breaches across USD and EUR-denominated transactions, quantifying the total exposure.',
+            'Developed a restructuring plan for all foreign currency flows to bring operations within regulatory parameters without disrupting trade operations.',
+            'Liaised with the client\'s banking partners to reconfigure account structures and reporting arrangements.',
+            'Prepared and submitted a voluntary disclosure to the regulatory authority, significantly mitigating potential penalty exposure.'
+        ],
+        outcome: `All four identified breaches were fully remediated within 6 weeks. The voluntary disclosure resulted in the regulatory authority accepting a corrective undertaking rather than pursuing punitive action — avoiding what could have been material financial penalties and reputational damage. The client now operates with a compliant multi-currency framework and a structured annual compliance review process managed by Axiom Global.`,
+    }
+};
+
+// ========== THEME TOGGLE ==========
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+if (localStorage.getItem('theme') === 'dark') body.classList.add('dark');
+themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+});
+
+// ========== MOBILE MENU ==========
+const hamburger = document.getElementById('hamburger');
+const navMenu   = document.getElementById('navMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+function closeMobileMenu() {
+    navMenu.classList.remove('active');
+    mobileOverlay.classList.remove('active');
+}
+hamburger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    navMenu.classList.toggle('active');
+    mobileOverlay.classList.toggle('active');
+});
+mobileOverlay.addEventListener('click', closeMobileMenu);
+document.querySelectorAll('#navMenu .nav-link').forEach(l => l.addEventListener('click', closeMobileMenu));
+
+// ========== SCROLL PROGRESS ==========
+const scrollProgressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    scrollProgressBar.style.width = ((scrollTop / docHeight) * 100) + '%';
+});
+
+// ========== BACK TO TOP ==========
+const backToTopBtn = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+    backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+});
+backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+// ========== CUSTOM CURSOR ==========
+const cursorDot  = document.getElementById('cursorDot');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top  = mouseY + 'px';
+});
+function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top  = ringY + 'px';
+    requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .cs-card, .cs-filter-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursorDot.classList.add('expanded'); cursorRing.classList.add('expanded'); });
+    el.addEventListener('mouseleave', () => { cursorDot.classList.remove('expanded'); cursorRing.classList.remove('expanded'); });
+});
+window.addEventListener('mousedown', () => { cursorDot.classList.add('clicked'); cursorRing.classList.add('clicked'); });
+window.addEventListener('mouseup',   () => { cursorDot.classList.remove('clicked'); cursorRing.classList.remove('clicked'); });
+
+// ========== FILTER ==========
+const filterBtns = document.querySelectorAll('.cs-filter-btn');
+const cards = document.querySelectorAll('.cs-card');
+const emptyState = document.getElementById('csEmpty');
+
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        let visible = 0;
+        cards.forEach(card => {
+            const match = filter === 'all' || card.dataset.category === filter;
+            card.classList.toggle('cs-hidden', !match);
+            if (match) visible++;
+        });
+        emptyState.classList.toggle('visible', visible === 0);
+    });
+});
+
+// ========== MODAL ==========
+const modalOverlay = document.getElementById('csModalOverlay');
+const modalContent = document.getElementById('csModalContent');
+const modalClose   = document.getElementById('csModalClose');
+
+function openModal(id) {
+    const data = caseStudies[id];
+    if (!data) return;
+
+    const statsHTML = data.stats.map(s => `
+        <div class="cs-modal-stat">
+            <span class="cs-modal-stat-value">${s.value}</span>
+            <span class="cs-modal-stat-label">${s.label}</span>
+        </div>`).join('');
+
+    const approachHTML = data.approach.map(a => `<li>${a}</li>`).join('');
+
+    modalContent.innerHTML = `
+        <span class="cs-modal-tag">${data.tag}</span>
+        <h2 class="cs-modal-title">${data.title}</h2>
+        <div class="cs-modal-client">${data.client}</div>
+
+        <div class="cs-modal-stats">${statsHTML}</div>
+
+        <div class="cs-modal-section">
+            <div class="cs-modal-section-title">The Challenge</div>
+            ${data.challenge.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('')}
+        </div>
+
+        <div class="cs-modal-divider"></div>
+
+        <div class="cs-modal-section">
+            <div class="cs-modal-section-title">Our Approach</div>
+            <ul class="cs-modal-list">${approachHTML}</ul>
+        </div>
+
+        <div class="cs-modal-divider"></div>
+
+        <div class="cs-modal-section">
+            <div class="cs-modal-section-title">Outcome</div>
+            <div class="cs-outcome-box"><p>${data.outcome}</p></div>
+        </div>
+    `;
+
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // scroll modal to top
+    document.getElementById('csModal').scrollTop = 0;
+}
+
+function closeModal() {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// open on card click
+cards.forEach(card => {
+    card.addEventListener('click', () => openModal(card.dataset.id));
+});
+
+// close button
+modalClose.addEventListener('click', closeModal);
+
+// close on overlay click
+modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+});
+
+// close on Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
+
+// ========== CARD ENTRANCE ANIMATION ==========
+const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            entry.target.style.transition = `opacity 0.55s ease ${i * 0.06}s, transform 0.55s ease ${i * 0.06}s, box-shadow 0.28s, border-color 0.28s`;
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.1 });
+
+cards.forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(28px)';
+    cardObserver.observe(card);
+});
+</script>
+
+</body>
+</html>

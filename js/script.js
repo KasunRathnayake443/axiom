@@ -91,7 +91,9 @@ const customAlert = document.getElementById('customAlert');
 const customAlertMsg = document.getElementById('customAlertMsg');
 const customAlertClose = document.getElementById('customAlertClose');
 
-function showAlert(message) {
+function showAlert(message, isSuccess = false) {
+    const alertTitle = document.getElementById('customAlertTitle');
+    alertTitle.textContent = isSuccess ? 'Message Sent' : 'Required Fields Missing';
     customAlertMsg.textContent = message;
     customAlert.classList.add('active');
 }
@@ -154,10 +156,47 @@ window.prevStep = function(step) {
     updateProgress();
 }
 
-// Form submit
-document.getElementById('multiStepForm').addEventListener('submit', function(e) {
+// ========== FORM SUBMIT (fetch → submit.php) ==========
+document.getElementById('multiStepForm').addEventListener('submit', async function (e) {
     e.preventDefault();
-    showAlert('Form submitted successfully! We will be in touch within 24 hours.');
+
+    const submitBtn = this.querySelector('[type="submit"]');
+    const originalText = submitBtn.textContent;
+
+    // Disable button + show sending state
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+        const formData = new FormData(this);
+
+        const response = await fetch('submit.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Show success alert
+            showAlert(result.message, true);
+
+            // Reset form back to step 1
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            currentStep = 1;
+            updateProgress();
+            document.getElementById('multiStepForm').reset();
+        } else {
+            showAlert(result.message || 'Something went wrong. Please try again.');
+        }
+
+    } catch (err) {
+        showAlert('Could not reach the server. Please check your connection and try again.');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+    }
 });
 
 // ========== REVEAL ON SCROLL ==========
@@ -232,19 +271,28 @@ function applyParallax() {
     const heroProgress = clamp(scrollY / (heroH * 0.75), 0, 1);
 
     if (heroContentEl) {
-        // content slides up and fades out
-        const contentY   = heroProgress * -80;
-        const contentOp  = 1 - heroProgress * 1.4;
-        heroContentEl.style.transform = `translateY(${contentY}px)`;
-        heroContentEl.style.opacity   = clamp(contentOp, 0, 1);
+        const contentY  = heroProgress * -80;
+        const contentOp = 1 - heroProgress * 1.4;
+
+        // on mobile, skip parallax transform so CSS centering is not disrupted
+        if (window.innerWidth > 800) {
+            heroContentEl.style.transform = `translateY(${contentY}px)`;
+        } else {
+            heroContentEl.style.transform = 'none';
+        }
+        heroContentEl.style.opacity = clamp(contentOp, 0, 1);
     }
 
-    if (heroSlidesEl) {
-        // background slides up slower (parallax depth) + fades
+   if (heroSlidesEl) {
         const bgY  = scrollY * 0.35;
         const bgOp = 1 - heroProgress * 0.6;
-        heroSlidesEl.style.transform = `translateY(${bgY}px)`;
-        heroSlidesEl.style.opacity   = clamp(bgOp, 0, 1);
+
+        if (window.innerWidth > 800) {
+            heroSlidesEl.style.transform = `translateY(${bgY}px)`;
+        } else {
+            heroSlidesEl.style.transform = 'none';
+        }
+        heroSlidesEl.style.opacity = clamp(bgOp, 0, 1);
     }
 
     if (heroOverlayEl) {

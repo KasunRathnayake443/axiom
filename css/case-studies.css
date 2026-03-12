@@ -1,0 +1,710 @@
+/* ========== PAGE HERO ========== */
+.cs-hero {
+    position: relative;
+    padding: 140px 0 80px;
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+}
+
+.cs-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(135deg, rgba(176,184,196,0.13) 1px, transparent 1px),
+        linear-gradient(45deg,  rgba(176,184,196,0.13) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+}
+
+body.dark .cs-hero::before {
+    background-image:
+        linear-gradient(135deg, rgba(120,136,158,0.08) 1px, transparent 1px),
+        linear-gradient(45deg,  rgba(120,136,158,0.08) 1px, transparent 1px);
+}
+
+.cs-hero::after {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(0,87,179,0.07) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.cs-hero-inner {
+    position: relative;
+    z-index: 1;
+}
+
+.cs-hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+}
+
+.cs-hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: var(--accent);
+    flex-shrink: 0;
+}
+
+.cs-hero h1 {
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    max-width: 680px;
+}
+
+.cs-hero p {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    max-width: 560px;
+    margin: 0;
+}
+
+.cs-hero-watermark {
+    position: absolute;
+    bottom: -40px;
+    right: 0;
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    opacity: 0.025;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ========== FILTER BAR ========== */
+.cs-filter-bar {
+    padding: 32px 0;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 72px;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+body:not(.dark) .cs-filter-bar {
+    background: rgba(255,255,255,0.92);
+}
+body.dark .cs-filter-bar {
+    background: rgba(18,20,28,0.92);
+}
+
+.cs-filter-inner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cs-filter-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+.cs-filter-btn {
+    padding: 7px 18px;
+    border-radius: 40px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    white-space: nowrap;
+}
+
+.cs-filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.cs-filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+/* ========== CASE STUDIES GRID ========== */
+.cs-section {
+    padding: 72px 0 100px;
+    background: var(--bg-secondary);
+}
+
+.cs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+    margin-top: 0;
+}
+
+/* ========== CASE STUDY CARD ========== */
+.cs-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.cs-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 52px rgba(0,0,0,0.12);
+    border-color: var(--accent);
+}
+
+body.dark .cs-card:hover {
+    box-shadow: 0 20px 52px rgba(0,0,0,0.45);
+}
+
+/* top accent bar */
+.cs-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.28s ease;
+    border-radius: 12px 12px 0 0;
+}
+
+.cs-card:hover::before {
+    opacity: 1;
+}
+
+.cs-card-header {
+    padding: 28px 28px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.cs-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(0,87,179,0.08);
+    border: 1px solid rgba(0,87,179,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+body.dark .cs-card-icon {
+    background: rgba(75,159,255,0.1);
+    border-color: rgba(75,159,255,0.2);
+}
+
+.cs-card:hover .cs-card-icon {
+    background: rgba(0,87,179,0.14);
+}
+
+.cs-card-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent);
+}
+
+.cs-card-meta {
+    flex: 1;
+}
+
+.cs-card-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0,87,179,0.07);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 8px;
+}
+
+body.dark .cs-card-tag {
+    background: rgba(75,159,255,0.1);
+}
+
+.cs-card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin: 0;
+    transition: color 0.2s;
+}
+
+.cs-card:hover .cs-card-title {
+    color: var(--accent);
+}
+
+.cs-card-body {
+    padding: 0 28px 20px;
+    flex: 1;
+}
+
+.cs-card-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    margin: 0;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* stats row */
+.cs-card-stats {
+    display: flex;
+    gap: 0;
+    margin: 20px 0 0;
+    border-top: 1px solid var(--border);
+    padding-top: 18px;
+}
+
+.cs-stat {
+    flex: 1;
+    text-align: center;
+    padding: 0 8px;
+    border-right: 1px solid var(--border);
+}
+
+.cs-stat:last-child {
+    border-right: none;
+}
+
+.cs-stat-value {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.cs-stat-label {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-top: 3px;
+}
+
+.cs-card-footer {
+    padding: 16px 28px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cs-card-client {
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cs-card-client::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
+}
+
+.cs-read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    transition: gap 0.2s;
+}
+
+.cs-read-more svg {
+    width: 13px;
+    height: 13px;
+    stroke: var(--accent);
+    transition: transform 0.2s;
+}
+
+.cs-card:hover .cs-read-more {
+    gap: 10px;
+}
+
+.cs-card:hover .cs-read-more svg {
+    transform: translateX(2px);
+}
+
+/* hidden filter state */
+.cs-card.cs-hidden {
+    display: none;
+}
+
+/* ========== MODAL OVERLAY ========== */
+.cs-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: rgba(8, 12, 22, 0.72);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.cs-modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.cs-modal {
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 780px;
+    max-height: 88vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.32s ease, opacity 0.32s ease;
+    opacity: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) var(--bg-secondary);
+}
+
+.cs-modal-overlay.active .cs-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+/* modal top accent */
+.cs-modal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--accent), var(--accent-hover));
+    border-radius: 16px 16px 0 0;
+}
+
+.cs-modal-close {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-end;
+    padding: 18px 22px 0;
+    background: var(--bg-primary);
+}
+
+.cs-modal-close-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+
+.cs-modal-close-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+}
+
+.cs-modal-close-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.cs-modal-content {
+    padding: 12px 44px 48px;
+}
+
+@media (max-width: 600px) {
+    .cs-modal-content { padding: 12px 24px 36px; }
+}
+
+.cs-modal-tag {
+    display: inline-block;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(0,87,179,0.07);
+    border-radius: 4px;
+    padding: 4px 10px;
+    margin-bottom: 16px;
+}
+
+body.dark .cs-modal-tag {
+    background: rgba(75,159,255,0.1);
+}
+
+.cs-modal-title {
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.cs-modal-client {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.cs-modal-client::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 2px;
+    background: var(--accent);
+    flex-shrink: 0;
+}
+
+/* modal stats */
+.cs-modal-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 36px;
+}
+
+.cs-modal-stat {
+    background: var(--bg-secondary);
+    padding: 20px 16px;
+    text-align: center;
+}
+
+.cs-modal-stat-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.cs-modal-stat-label {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+/* section headings inside modal */
+.cs-modal-section {
+    margin-bottom: 28px;
+}
+
+.cs-modal-section-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cs-modal-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.cs-modal-section p {
+    font-size: 0.95rem;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+    max-width: 100%;
+}
+
+.cs-modal-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* bullet list inside modal */
+.cs-modal-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+}
+
+.cs-modal-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.92rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.cs-modal-list li::before {
+    content: '◈';
+    color: var(--accent);
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+/* divider */
+.cs-modal-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+}
+
+/* outcome highlight box */
+.cs-outcome-box {
+    background: rgba(0,87,179,0.05);
+    border: 1px solid rgba(0,87,179,0.15);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin-top: 16px;
+}
+
+body.dark .cs-outcome-box {
+    background: rgba(75,159,255,0.06);
+    border-color: rgba(75,159,255,0.15);
+    border-left-color: var(--accent);
+}
+
+.cs-outcome-box p {
+    font-size: 0.92rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.75;
+    color: var(--text-primary);
+    margin: 0;
+    max-width: 100%;
+}
+
+/* ========== EMPTY STATE ========== */
+.cs-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 72px 24px;
+    display: none;
+}
+
+.cs-empty.visible {
+    display: block;
+}
+
+.cs-empty p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 0 auto;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 860px) {
+    .cs-grid {
+        grid-template-columns: 1fr;
+    }
+    .cs-hero {
+        padding: 120px 0 60px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cs-modal-stats {
+        grid-template-columns: 1fr;
+    }
+    .cs-filter-bar {
+        top: 68px;
+    }
+    .cs-card-stats {
+        gap: 0;
+    }
+}
