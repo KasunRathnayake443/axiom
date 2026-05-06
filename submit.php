@@ -1,6 +1,7 @@
 <?php
 /**
  * Axiom Global — Contact Form Handler
+ * PHPMailer + PDO MySQL storage
  */
 
 header('Content-Type: application/json');
@@ -283,9 +284,52 @@ function buildMailer(): PHPMailer {
     return $mail;
 }
 
-// ── Send both emails ──────────────────────────────────────────────────────────
+// ── Database helper ───────────────────────────────────────────────────────────
+function getDB(): PDO {
+    $dsn = sprintf(
+        'mysql:host=%s;dbname=%s;charset=utf8mb4',
+        env('DB_HOST', 'localhost'),
+        env('DB_NAME')
+    );
+    return new PDO($dsn, env('DB_USER'), env('DB_PASS'), [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    ]);
+}
+
+// ── Save to database ──────────────────────────────────────────────────────────
+function saveToDatabase(array $data): void {
+    $db  = getDB();
+    $sql = "INSERT INTO consultation_requests
+                (full_name, company, industry, email, phone, contact_method,
+                 interest_area, challenge, short_term, long_term, urgency, referral)
+            VALUES
+                (:full_name, :company, :industry, :email, :phone, :contact_method,
+                 :interest_area, :challenge, :short_term, :long_term, :urgency, :referral)";
+
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':full_name'      => $data['full_name'],
+        ':company'        => $data['company'],
+        ':industry'       => $data['industry'],
+        ':email'          => $data['email'],
+        ':phone'          => $data['phone'],
+        ':contact_method' => $data['contact_method'],
+        ':interest_area'  => $data['interest_area'],
+        ':challenge'      => $data['challenge'],
+        ':short_term'     => $data['short_term']  ?: null,
+        ':long_term'      => $data['long_term']   ?: null,
+        ':urgency'        => $data['urgency'],
+        ':referral'       => $data['referral']    ?: null,
+    ]);
+}
+
+// ── Send emails + save to DB ──────────────────────────────────────────────────
 try {
-    // 1. Owner notification
+    // 1. Save to database first (fails fast if DB is misconfigured)
+    saveToDatabase($data);
+
+    // 2. Owner notification email
     $owner = buildMailer();
     $owner->addAddress(env('MAIL_TO', 'owner@axg.lk'));
     $owner->addReplyTo($data['email'], $data['full_name']);
@@ -295,7 +339,7 @@ try {
     $owner->AltBody = $emailText;
     $owner->send();
 
-    // 2. User confirmation
+    // 3. User confirmation email
     $confirm = buildMailer();
     $confirm->addAddress($data['email'], $data['full_name']);
     $confirm->isHTML(true);
@@ -310,10 +354,19 @@ try {
     ]);
 
 } catch (Exception $e) {
+    // PHPMailer error
     http_response_code(500);
     echo json_encode([
         'success' => false,
         'message' => 'Could not send your message. Please try again or contact us directly.',
+        'debug'   => env('APP_DEBUG', 'false') === 'true' ? $e->getMessage() : null
+    ]);
+} catch (\PDOException $e) {
+    // Database error
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'A server error occurred. Please try again.',
         'debug'   => env('APP_DEBUG', 'false') === 'true' ? $e->getMessage() : null
     ]);
 }
