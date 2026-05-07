@@ -503,9 +503,13 @@ function applyParallax() {
 
         // card scales up slightly on entrance for extra depth
         if (quote2Card) {
-            const cardScale = stEnterP !== undefined
-                ? 1
-                : clamp(0.94 + (1 - q2EnterP) * 0.06, 0.94, 1);
+            // card scales up slightly on entrance for extra depth
+        if (quote2Card) {
+            // ← deleted lines were here
+            const scaleVal  = clamp(0.94 + (1 - q2EnterP) * 0.06, 0.94, 1);
+            quote2Card.style.transform = `scale(${scaleVal})`;
+            quote2Card.style.opacity   = clamp(q2Op + 0.1, 0, 1);
+        }
 
             const scaleVal  = clamp(0.94 + (1 - q2EnterP) * 0.06, 0.94, 1);
             quote2Card.style.transform = `scale(${scaleVal})`;
