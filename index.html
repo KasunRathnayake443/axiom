@@ -9,6 +9,20 @@
 <link rel="icon" href="assets/logo.png" type="image/x-icon">
 <link rel="stylesheet" href="css/style.css">
 
+<!--
+  ═══════════════════════════════════════════════════════════════
+  ANTI-SPAM LAYER 1 OF 3 — Google reCAPTCHA v3
+  ---------------------------------------------------------------
+  SETUP REQUIRED:
+    1. Go to https://www.google.com/recaptcha/admin/create
+    2. Choose "reCAPTCHA v3"
+    3. Add your domain (e.g. axiomglobal.com)
+    4. Copy your SITE KEY and replace YOUR_RECAPTCHA_SITE_KEY below
+    5. Copy your SECRET KEY and put it in your .env file as:
+       RECAPTCHA_SECRET=your_secret_key_here
+  ═══════════════════════════════════════════════════════════════
+-->
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcnad0sAAAAAAx-zdQZORboNwhFIz-fhuN8gnz0" async defer></script>
 
 </head>
 <body>
@@ -23,11 +37,9 @@
 <header class="header">
     <div class="container nav">
         <div class="logo">
-            <!-- Placeholder alt: keep original path, use a reliable placeholder if needed -->
             <img src="assets/Gemini_Generated_Image_t7bomrt7bomrt7bo.png" alt="Axiom Global" onerror="this.src='https://placehold.co/120x48/1a1f2e/white?text=AXIOM'">
         </div>
 
-        <!-- Hamburger button for mobile -->
         <button class="hamburger" id="hamburger" aria-label="menu">
             <span></span>
             <span></span>
@@ -35,13 +47,11 @@
         </button>
 
         <nav id="navMenu">
-            <!-- NEW: About Us link (goes to Why Partner With Us section) -->
             <a href="#about" class="nav-link">About</a>
             <a href="#expertise" class="nav-link">Expertise</a>
             <a href="case-studies.html" class="nav-link">Case Studies</a>
             <a href="#contact" class="nav-link">Contact</a>
 
-            <!-- Theme Toggle -->
             <button id="themeToggle" class="theme-toggle">
                 <span class="icon sun">☀️</span>
                 <span class="icon moon">🌙</span>
@@ -55,10 +65,8 @@
 <div id="mobileOverlay" class="mobile-overlay"></div>
 
 <!-- HERO -->
-<!-- HERO -->
 <section class="hero">
 
-    <!-- CAROUSEL SLIDES -->
     <div class="hero-slides">
         <div class="hero-slide active" data-heading="Strategic Clarity.<br><em>Sustainable Growth.</em>">
             <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=1900&auto=format&fit=crop&q=85" alt="Modern corporate office">
@@ -72,24 +80,19 @@
     </div>
 
     <div class="hero-overlay"></div>
-
-    <!-- decorative vertical line -->
     <div class="hero-vert-line"></div>
 
     <div class="container">
         <div class="hero-content reveal">
 
-            <!-- eyebrow -->
             <div class="hero-eyebrow">
                 <span class="hero-eyebrow-dot"></span>
                 360° Business Advisory
                 <span class="hero-eyebrow-tag">Colombo, Sri Lanka</span>
             </div>
 
-           <!-- heading -->
-            <h1 id="heroHeading">Strategic Clarity.<br><em>Sustainable Growth.</em></h1>
+           <h1 id="heroHeading">Strategic Clarity.<br><em>Sustainable Growth.</em></h1>
 
-            <!-- bottom row: text + CTA -->
             <div class="hero-bottom">
                 <p>
                     Axiom Global provides the advisory backbone that SMEs need
@@ -111,7 +114,6 @@
                 </div>
             </div>
 
-            <!-- mobile CTA -->
             <a href="#contact" class="hero-cta-mobile">
                 Book Your Free 20-Minute Strategy Session
                 <span class="hero-cta-arrows">
@@ -123,7 +125,6 @@
         </div>
     </div>
 
- <!-- scroll indicator -->
     <div class="hero-scroll-hint">
         <div class="hero-scroll-mouse">
             <div class="hero-scroll-dot"></div>
@@ -131,7 +132,6 @@
         <span>Scroll</span>
     </div>
 
-   
     <div class="hero-carousel-controls">
         <button class="carousel-arrow carousel-prev" id="carouselPrev" aria-label="Previous slide">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -153,12 +153,11 @@
 </section>
 
 
-<!-- ABOUT (Why Partner With Us) -->
+<!-- ABOUT -->
 <section id="about" class="section about-section reveal">
     <div class="about-silver-bg"></div>
     <div class="container about-inner">
 
-        <!-- LEFT: TEXT -->
         <div class="about-text">
             <span class="about-eyebrow">Who We Are</span>
             <h2>Why Partner<br>With Us?</h2>
@@ -190,13 +189,9 @@
             </div>
         </div>
 
-        <!-- RIGHT: IMAGE -->
         <div class="about-image-wrap">
             <div class="about-image-frame">
-                <img
-                    src="assets/ax1.jpg"
-                    alt="Senior business advisor"
-                />
+                <img src="assets/ax1.jpg" alt="Senior business advisor" />
             </div>
             <div class="about-image-accent"></div>
         </div>
@@ -204,7 +199,7 @@
     </div>
 </section>
 
-<!-- QUOTE 1 — Minimal centered style -->
+<!-- QUOTE 1 -->
 <div class="quote-strip quote-style-one parallax-quote-1">
     <div class="container quote-one-inner">
         <div class="quote-one-line"></div>
@@ -240,7 +235,6 @@
 
     <div class="container strategy-inner">
 
-        <!-- LEFT: IMAGE -->
         <div class="strategy-image-wrap">
             <div class="strategy-image-frame">
                 <img
@@ -252,7 +246,6 @@
             <div class="strategy-image-accent"></div>
         </div>
 
-        <!-- RIGHT: TEXT -->
         <div class="strategy-text-block">
             <span class="strategy-eyebrow">Your Next Step</span>
             <h2>Let's Discuss<br>Your Roadmap</h2>
@@ -274,7 +267,7 @@
     </div>
 </section>
 
-<!-- QUOTE 2 — Bold dark card style -->
+<!-- QUOTE 2 -->
 <div class="quote-strip quote-style-two parallax-quote-2">
     <div class="container quote-two-inner">
         <div class="quote-two-card">
@@ -300,7 +293,43 @@
             <div class="progress" id="formProgress"></div>
         </div>
 
-        <form id="multiStepForm" action="submit.php" method="POST">
+        <!--
+          ═══════════════════════════════════════════════════════════════
+          NOTE: action changed from "submit.php" to "" so JS intercepts
+          it. The JS below handles the fetch() POST to submit.php.
+          ═══════════════════════════════════════════════════════════════
+        -->
+        <form id="multiStepForm">
+
+            <!-- ─────────────────────────────────────────────────────────
+                 ANTI-SPAM LAYER 2 OF 3 — HONEYPOT FIELD
+                 Hidden from real users via CSS (aria-hidden + tabindex).
+                 Bots fill every input they find — if this has a value,
+                 the submission is silently rejected server-side.
+            ───────────────────────────────────────────────────────────── -->
+            <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+                <label for="website_url">Leave this field empty</label>
+                <input
+                    type="text"
+                    id="website_url"
+                    name="website_url"
+                    tabindex="-1"
+                    autocomplete="off"
+                    value=""
+                >
+            </div>
+
+            <!-- ─────────────────────────────────────────────────────────
+                 ANTI-SPAM LAYER 3 OF 3 — TIMESTAMP (Time-Based Check)
+                 Records when the form page loaded (Unix ms).
+                 submit.php rejects submissions faster than 5 seconds —
+                 bots submit instantly; humans can't fill this form
+                 in under 5 seconds.
+            ───────────────────────────────────────────────────────────── -->
+            <input type="hidden" id="form_loaded_at" name="form_loaded_at" value="">
+
+            <!-- reCAPTCHA v3 token — populated by JS on submit -->
+            <input type="hidden" id="recaptcha_token" name="recaptcha_token" value="">
 
             <!-- PART A -->
             <div class="form-step active" id="step1">
@@ -389,7 +418,13 @@
 
                 <div class="button-group">
                     <button type="button" class="btn-secondary prev-btn" onclick="prevStep(3)">Back</button>
-                    <button type="submit" class="btn-primary">Submit & Schedule</button>
+                    <!--
+                      Submit button now calls handleFormSubmit() instead of
+                      native form submit — JS handles reCAPTCHA token first.
+                    -->
+                    <button type="button" class="btn-primary" id="submitBtn" onclick="handleFormSubmit()">
+                        Submit &amp; Schedule
+                    </button>
                 </div>
             </div>
         </form>
@@ -402,7 +437,6 @@
     <div class="footer-top">
         <div class="container footer-grid">
 
-            <!-- COL 1: Brand -->
             <div class="footer-col footer-brand">
                 <img src="assets/Gemini_Generated_Image_t7bomrt7bomrt7bo.png" alt="Axiom Global"
                     onerror="this.src='https://placehold.co/120x48/ffffff/ffffff?text=AXIOM'"
@@ -423,7 +457,6 @@
                 </div>
             </div>
 
-            <!-- COL 2: Quick Links -->
             <div class="footer-col">
                 <h4 class="footer-heading">Quick Links</h4>
                 <ul class="footer-links">
@@ -433,7 +466,6 @@
                 </ul>
             </div>
 
-            <!-- COL 3: Services -->
             <div class="footer-col">
                 <h4 class="footer-heading">Services</h4>
                 <ul class="footer-links">
@@ -446,7 +478,6 @@
                 </ul>
             </div>
 
-            <!-- COL 4: Contact -->
             <div class="footer-col">
                 <h4 class="footer-heading">Get In Touch</h4>
                 <ul class="footer-contact-list">
@@ -480,7 +511,6 @@
         </div>
     </div>
 
-    <!-- FOOTER BOTTOM -->
     <div class="footer-bottom">
         <div class="container footer-bottom-inner">
             <p>© 2026 Axiom Global. All rights reserved. Powered by <a class="beesmart-link" href="https://beesmart.ltd/" target="_blank">BeeSmart Ltd.</a></p>
@@ -494,6 +524,11 @@
     </div>
 </footer>
 
+<p class="recaptcha-notice">
+    This site is protected by reCAPTCHA and the Google
+    <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a> and
+    <a href="https://policies.google.com/terms" target="_blank">Terms of Service</a> apply.
+</p>
 
 <!-- Custom Alert Modal -->
 <div id="customAlert" class="custom-alert-overlay">
@@ -535,5 +570,85 @@
 </div>
 
 <script src="js/script.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANTI-SPAM — CLIENT-SIDE JAVASCRIPT
+   ═══════════════════════════════════════════════════════════════════════════
+
+   Three things happen here:
+   1. Timestamp is written to the hidden field the moment the page loads.
+   2. On submit, reCAPTCHA v3 executes and injects its token into the hidden
+      recaptcha_token field before the POST is sent.
+   3. The form is submitted via fetch() so we can show a success/error state
+      without a page reload.
+
+   REPLACE 'YOUR_RECAPTCHA_SITE_KEY' with your actual site key (same key
+   used in the <script src> tag at the top of the page).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+// ── Layer 3: Record form-load timestamp ──────────────────────────────────────
+document.getElementById('form_loaded_at').value = Date.now();
+
+// ── Main submit handler ───────────────────────────────────────────────────────
+async function handleFormSubmit() {
+
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Disable button to prevent double-submits
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+
+        // ── Layer 1: Get reCAPTCHA v3 token ───────────────────────────────
+        const token = await grecaptcha.execute('6Lcnad0sAAAAAAx-zdQZORboNwhFIz-fhuN8gnz0', { action: 'contact_form' });
+        document.getElementById('recaptcha_token').value = token;
+
+        // ── Gather form data ───────────────────────────────────────────────
+        const form     = document.getElementById('multiStepForm');
+        const formData = new FormData(form);
+
+        // ── POST to submit.php ─────────────────────────────────────────────
+        const response = await fetch('submit.php', {
+            method : 'POST',
+            body   : formData,
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            // Show success state
+            showCustomAlert(
+                '✅ Submission Received',
+                result.message || 'We\'ll be in touch within 24 hours.'
+            );
+            form.reset();
+            // Reset to step 1
+            document.querySelectorAll('.form-step').forEach((s, i) => {
+                s.classList.toggle('active', i === 0);
+            });
+            document.getElementById('form_loaded_at').value = Date.now();
+        } else {
+            showCustomAlert('Submission Error', result.message || 'Something went wrong. Please try again.');
+        }
+
+    } catch (err) {
+        showCustomAlert('Network Error', 'Could not reach the server. Please check your connection and try again.');
+        console.error('Form submission error:', err);
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit & Schedule';
+    }
+}
+
+// Helper — reuse your existing alert modal
+function showCustomAlert(title, message) {
+    document.getElementById('customAlertTitle').textContent = title;
+    document.getElementById('customAlertMsg').textContent   = message;
+    document.getElementById('customAlert').classList.add('active');
+}
+</script>
+
 </body>
 </html>

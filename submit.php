@@ -2,6 +2,25 @@
 /**
  * Axiom Global — Contact Form Handler
  * PHPMailer + PDO MySQL storage
+ *
+ * ═══════════════════════════════════════════════════════════════════════════
+ * ANTI-SPAM PROTECTION — THREE LAYERS
+ * ═══════════════════════════════════════════════════════════════════════════
+ *
+ * Layer 1 — reCAPTCHA v3 (Google)
+ *   Verifies the token sent from the frontend against Google's API.
+ *   Rejects any submission scoring below 0.5 (0 = bot, 1 = human).
+ *   Required .env key: RECAPTCHA_SECRET=your_secret_key_here
+ *
+ * Layer 2 — Honeypot Field
+ *   Rejects any submission where the hidden "website_url" field is filled.
+ *   Bots fill all inputs; real users never see or touch this field.
+ *
+ * Layer 3 — Time-Based Check
+ *   Rejects submissions completed in under MIN_FILL_SECONDS (default: 5s).
+ *   Bots submit instantly; no human can read and fill this form that fast.
+ *
+ * ═══════════════════════════════════════════════════════════════════════════
  */
 
 header('Content-Type: application/json');
@@ -37,6 +56,102 @@ function env(string $key, string $default = ''): string {
 function clean(?string $value): string {
     return htmlspecialchars(strip_tags(trim($value ?? '')), ENT_QUOTES, 'UTF-8');
 }
+
+// ── Minimum seconds a human needs to fill this form ──────────────────────────
+define('MIN_FILL_SECONDS', 5);
+
+// ── ANTI-SPAM: Silent rejection helper ───────────────────────────────────────
+// We return a fake "success" response to confuse bots rather than
+// revealing that we detected them, which prevents them from adapting.
+function silentReject(): never {
+    echo json_encode([
+        'success' => true,
+        'message' => 'Your request has been submitted. We will be in touch within 24 hours.',
+    ]);
+    exit;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LAYER 2 — HONEYPOT CHECK
+// If the hidden "website_url" field was filled, it's a bot.
+// ═══════════════════════════════════════════════════════════════════════════
+$honeypot = $_POST['website_url'] ?? '';
+if (!empty(trim($honeypot))) {
+    // Bot detected — silently pretend success
+    silentReject();
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LAYER 3 — TIME-BASED CHECK
+// Reject if form was submitted in under MIN_FILL_SECONDS.
+// ═══════════════════════════════════════════════════════════════════════════
+$formLoadedAt = (int) ($_POST['form_loaded_at'] ?? 0);
+if ($formLoadedAt > 0) {
+    $elapsedSeconds = (int) floor((time() * 1000 - $formLoadedAt) / 1000);
+    if ($elapsedSeconds < MIN_FILL_SECONDS) {
+        // Too fast — bot detected
+        silentReject();
+    }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// LAYER 1 — reCAPTCHA v3 VERIFICATION
+// Calls Google's siteverify API to validate the token from the frontend.
+// ═══════════════════════════════════════════════════════════════════════════
+$recaptchaSecret = env('RECAPTCHA_SECRET');
+$recaptchaToken  = clean($_POST['recaptcha_token'] ?? '');
+
+if (!empty($recaptchaSecret) && !empty($recaptchaToken)) {
+
+    $verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    $verifyData = http_build_query([
+        'secret'   => $recaptchaSecret,
+        'response' => $recaptchaToken,
+        'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+    ]);
+
+    $ctx = stream_context_create([
+        'http' => [
+            'method'  => 'POST',
+            'header'  => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => $verifyData,
+            'timeout' => 5,
+        ],
+    ]);
+
+    $verifyResult = @file_get_contents($verifyUrl, false, $ctx);
+
+    if ($verifyResult === false) {
+        // Google API unreachable — fail open (let through) to avoid
+        // blocking real users during a Google outage. Remove this
+        // branch and replace with silentReject() if you prefer to fail closed.
+        error_log('[Axiom] reCAPTCHA API unreachable — skipping check.');
+    } else {
+        $recaptchaResponse = json_decode($verifyResult, true);
+
+        $passed = ($recaptchaResponse['success'] ?? false) === true
+               && ($recaptchaResponse['action']  ?? '')    === 'contact_form'
+               && ($recaptchaResponse['score']   ?? 0)     >= 0.5;
+
+        if (!$passed) {
+            // Failed reCAPTCHA — silently reject
+            error_log(sprintf(
+                '[Axiom] reCAPTCHA failed — score: %s, action: %s, errors: %s',
+                $recaptchaResponse['score']  ?? 'n/a',
+                $recaptchaResponse['action'] ?? 'n/a',
+                implode(', ', $recaptchaResponse['error-codes'] ?? [])
+            ));
+            silentReject();
+        }
+    }
+
+} elseif (!empty($recaptchaSecret) && empty($recaptchaToken)) {
+    // Secret is configured but no token was submitted — definitely a bot
+    // (real browsers always send a token when reCAPTCHA is loaded)
+    silentReject();
+}
+// If RECAPTCHA_SECRET is not set in .env, skip reCAPTCHA check entirely
+// (useful during local development — add the key for production).
 
 // ── Collect & sanitise ────────────────────────────────────────────────────────
 $data = [
@@ -326,7 +441,7 @@ function saveToDatabase(array $data): void {
 
 // ── Send emails + save to DB ──────────────────────────────────────────────────
 try {
-    // 1. Save to database first (fails fast if DB is misconfigured)
+    // 1. Save to database first
     saveToDatabase($data);
 
     // 2. Owner notification email
@@ -354,7 +469,6 @@ try {
     ]);
 
 } catch (Exception $e) {
-    // PHPMailer error
     http_response_code(500);
     echo json_encode([
         'success' => false,
@@ -362,7 +476,6 @@ try {
         'debug'   => env('APP_DEBUG', 'false') === 'true' ? $e->getMessage() : null
     ]);
 } catch (\PDOException $e) {
-    // Database error
     http_response_code(500);
     echo json_encode([
         'success' => false,

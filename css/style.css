@@ -2724,3 +2724,17 @@ body.dark .scroll-progress {
     box-shadow: 0 0 10px rgba(75, 159, 255, 0.6);
 }
 
+.grecaptcha-badge {
+    visibility: hidden !important;
+}
+
+.recaptcha-notice {
+    font-size: 0.72rem;
+    color: #9098a9;
+    text-align: center;
+    margin-top: 16px;
+}
+.recaptcha-notice a {
+    color: #0057b3;
+    text-decoration: underline;
+}
