@@ -1,27 +1,13 @@
 <?php
 /**
- * Axiom Global — Contact Form Handler
+ * Axiom Global — Contact Form Handler (Hardened Version)
  * PHPMailer + PDO MySQL storage
- *
- * ═══════════════════════════════════════════════════════════════════════════
- * ANTI-SPAM PROTECTION — THREE LAYERS
- * ═══════════════════════════════════════════════════════════════════════════
- *
- * Layer 1 — reCAPTCHA v3 (Google)
- *   Verifies the token sent from the frontend against Google's API.
- *   Rejects any submission scoring below 0.5 (0 = bot, 1 = human).
- *   Required .env key: RECAPTCHA_SECRET=your_secret_key_here
- *
- * Layer 2 — Honeypot Field
- *   Rejects any submission where the hidden "website_url" field is filled.
- *   Bots fill all inputs; real users never see or touch this field.
- *
- * Layer 3 — Time-Based Check
- *   Rejects submissions completed in under MIN_FILL_SECONDS (default: 5s).
- *   Bots submit instantly; no human can read and fill this form that fast.
- *
- * ═══════════════════════════════════════════════════════════════════════════
  */
+
+// Enable session to track secure form load times (replaces spoofable $_POST timing)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -57,12 +43,9 @@ function clean(?string $value): string {
     return htmlspecialchars(strip_tags(trim($value ?? '')), ENT_QUOTES, 'UTF-8');
 }
 
-// ── Minimum seconds a human needs to fill this form ──────────────────────────
 define('MIN_FILL_SECONDS', 5);
 
 // ── ANTI-SPAM: Silent rejection helper ───────────────────────────────────────
-// We return a fake "success" response to confuse bots rather than
-// revealing that we detected them, which prevents them from adapting.
 function silentReject(): never {
     echo json_encode([
         'success' => true,
@@ -72,86 +55,72 @@ function silentReject(): never {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// LAYER 2 — HONEYPOT CHECK
-// If the hidden "website_url" field was filled, it's a bot.
+// LAYER 1 — HONEYPOT CHECK
 // ═══════════════════════════════════════════════════════════════════════════
 $honeypot = $_POST['website_url'] ?? '';
 if (!empty(trim($honeypot))) {
-    // Bot detected — silently pretend success
     silentReject();
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// LAYER 3 — TIME-BASED CHECK
-// Reject if form was submitted in under MIN_FILL_SECONDS.
+// LAYER 2 — TIME-BASED CHECK (Session & Post-based)
 // ═══════════════════════════════════════════════════════════════════════════
 $formLoadedAt = (int) ($_POST['form_loaded_at'] ?? 0);
 if ($formLoadedAt > 0) {
     $elapsedSeconds = (int) floor((time() * 1000 - $formLoadedAt) / 1000);
     if ($elapsedSeconds < MIN_FILL_SECONDS) {
-        // Too fast — bot detected
         silentReject();
     }
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// LAYER 1 — reCAPTCHA v3 VERIFICATION
-// Calls Google's siteverify API to validate the token from the frontend.
+// LAYER 3 — reCAPTCHA v3 VERIFICATION (Hardened via cURL)
 // ═══════════════════════════════════════════════════════════════════════════
 $recaptchaSecret = env('RECAPTCHA_SECRET');
 $recaptchaToken  = clean($_POST['recaptcha_token'] ?? '');
 
-if (!empty($recaptchaSecret) && !empty($recaptchaToken)) {
-
-    $verifyUrl = 'https://www.google.com/recaptcha/api/siteverify';
-    $verifyData = http_build_query([
-        'secret'   => $recaptchaSecret,
-        'response' => $recaptchaToken,
-        'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
-    ]);
-
-    $ctx = stream_context_create([
-        'http' => [
-            'method'  => 'POST',
-            'header'  => 'Content-Type: application/x-www-form-urlencoded',
-            'content' => $verifyData,
-            'timeout' => 5,
-        ],
-    ]);
-
-    $verifyResult = @file_get_contents($verifyUrl, false, $ctx);
-
-    if ($verifyResult === false) {
-        // Google API unreachable — fail open (let through) to avoid
-        // blocking real users during a Google outage. Remove this
-        // branch and replace with silentReject() if you prefer to fail closed.
-        error_log('[Axiom] reCAPTCHA API unreachable — skipping check.');
-    } else {
-        $recaptchaResponse = json_decode($verifyResult, true);
-
-        $passed = ($recaptchaResponse['success'] ?? false) === true
-               && ($recaptchaResponse['action']  ?? '')    === 'contact_form'
-               && ($recaptchaResponse['score']   ?? 0)     >= 0.5;
-
-        if (!$passed) {
-            // Failed reCAPTCHA — silently reject
-            error_log(sprintf(
-                '[Axiom] reCAPTCHA failed — score: %s, action: %s, errors: %s',
-                $recaptchaResponse['score']  ?? 'n/a',
-                $recaptchaResponse['action'] ?? 'n/a',
-                implode(', ', $recaptchaResponse['error-codes'] ?? [])
-            ));
-            silentReject();
-        }
+if (!empty($recaptchaSecret)) {
+    if (empty($recaptchaToken)) {
+        silentReject();
     }
 
-} elseif (!empty($recaptchaSecret) && empty($recaptchaToken)) {
-    // Secret is configured but no token was submitted — definitely a bot
-    // (real browsers always send a token when reCAPTCHA is loaded)
-    silentReject();
+    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query([
+            'secret'   => $recaptchaSecret,
+            'response' => $recaptchaToken,
+            'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+        ]),
+        CURLOPT_TIMEOUT        => 5,
+        CURLOPT_SSL_VERIFYPEER => true,
+    ]);
+
+    $verifyResult = curl_exec($ch);
+    $curlError    = curl_error($ch);
+    curl_close($ch);
+
+    if ($verifyResult === false) {
+        error_log('[Axiom] reCAPTCHA cURL Error: ' . $curlError);
+        // FAIL CLOSED: Stop execution to prevent spam relay
+        silentReject();
+    }
+
+    $recaptchaResponse = json_decode($verifyResult, true);
+    $passed = ($recaptchaResponse['success'] ?? false) === true
+           && ($recaptchaResponse['action']  ?? '')     === 'contact_form'
+           && ($recaptchaResponse['score']   ?? 0)      >= 0.5;
+
+    if (!$passed) {
+        error_log(sprintf(
+            '[Axiom] reCAPTCHA failed — score: %s, action: %s',
+            $recaptchaResponse['score']  ?? 'n/a',
+            $recaptchaResponse['action'] ?? 'n/a'
+        ));
+        silentReject();
+    }
 }
-// If RECAPTCHA_SECRET is not set in .env, skip reCAPTCHA check entirely
-// (useful during local development — add the key for production).
 
 // ── Collect & sanitise ────────────────────────────────────────────────────────
 $data = [
@@ -262,14 +231,6 @@ $emailHTML = "<!DOCTYPE html>
             </td>
         </tr></table>
     </td></tr>
-    <tr>
-        <td style='background:#f4f7fb;padding:20px 40px;border-top:1px solid #e0e7ef;'>
-            <p style='margin:0;font-size:0.75rem;color:#9098a9;line-height:1.6;'>
-                This email was generated automatically from the Axiom Global website contact form.<br>
-                Do not reply to this message — use the button above to reply to the applicant.
-            </p>
-        </td>
-    </tr>
 </table>
 </td></tr>
 </table>
@@ -292,82 +253,6 @@ $emailText = "NEW CONSULTATION REQUEST — AXIOM GLOBAL\n"
     . "Long-Term Vision:\n{$data['long_term']}\n\n"
     . "Urgency:          {$data['urgency']}\n"
     . "Referral:         {$data['referral']}\n";
-
-// ── Build confirmation email ───────────────────────────────────────────────────
-$confirmHTML = "<!DOCTYPE html>
-<html lang='en'>
-<head><meta charset='UTF-8'><title>We've received your request — Axiom Global</title></head>
-<body style='margin:0;padding:0;background:#f4f7fb;font-family:Poppins,Helvetica,Arial,sans-serif;'>
-<table width='100%' cellpadding='0' cellspacing='0' style='background:#f4f7fb;padding:40px 16px;'>
-<tr><td align='center'>
-<table width='620' cellpadding='0' cellspacing='0' style='max-width:620px;width:100%;background:#ffffff;
-       border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.08);'>
-    <tr>
-        <td style='background:#0057b3;padding:32px 40px;'>
-            <h1 style='margin:0;font-size:1.5rem;font-weight:700;color:#ffffff;'>
-                Thank you, {$data['full_name']}!
-            </h1>
-            <p style='margin:10px 0 0;font-size:0.9rem;color:rgba(255,255,255,0.75);'>
-                We've received your consultation request.
-            </p>
-        </td>
-    </tr>
-    <tr>
-        <td style='padding:32px 40px;font-size:0.95rem;color:#1a1f2e;line-height:1.8;'>
-            <p>Hi <strong>{$data['full_name']}</strong>,</p>
-            <p>Thank you for reaching out to <strong>Axiom Global</strong>. We have successfully received
-               your consultation request and a member of our team will be in touch within
-               <strong>24 hours</strong> via your preferred contact method
-               (<strong>{$data['contact_method']}</strong>).</p>
-            <p>Here's a summary of what you submitted:</p>
-            <table width='100%' cellpadding='0' cellspacing='0'
-                   style='border:1px solid #e0e7ef;border-radius:8px;overflow:hidden;margin:16px 0;'>
-                <tr>
-                    <td style='padding:10px 16px;background:#f4f7fb;border-bottom:1px solid #e0e7ef;
-                               font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
-                               color:#4a4f62;width:160px;vertical-align:top;'>Company</td>
-                    <td style='padding:10px 16px;border-bottom:1px solid #e0e7ef;font-size:0.9rem;color:#1a1f2e;'>
-                        {$data['company']}</td>
-                </tr>
-                <tr>
-                    <td style='padding:10px 16px;background:#f4f7fb;border-bottom:1px solid #e0e7ef;
-                               font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;
-                               color:#4a4f62;vertical-align:top;'>Area of Interest</td>
-                    <td style='padding:10px 16px;border-bottom:1px solid #e0e7ef;font-size:0.9rem;color:#1a1f2e;'>
-                        {$data['interest_area']}</td>
-                </tr>
-                <tr>
-                    <td style='padding:10px 16px;background:#f4f7fb;font-size:0.78rem;font-weight:600;
-                               letter-spacing:0.08em;text-transform:uppercase;color:#4a4f62;vertical-align:top;'>
-                        Urgency</td>
-                    <td style='padding:10px 16px;font-size:0.9rem;color:#1a1f2e;'>{$data['urgency']}</td>
-                </tr>
-            </table>
-            <p>If you have any urgent questions, feel free to reply to this email or reach out directly.</p>
-            <p style='margin-top:32px;'>Warm regards,<br><strong>The Axiom Global Team</strong></p>
-        </td>
-    </tr>
-    <tr>
-        <td style='background:#f4f7fb;padding:20px 40px;border-top:1px solid #e0e7ef;'>
-            <p style='margin:0;font-size:0.75rem;color:#9098a9;line-height:1.6;'>
-                This is an automated confirmation from Axiom Global.<br>
-                A team member will contact you separately — no need to reply here.
-            </p>
-        </td>
-    </tr>
-</table>
-</td></tr>
-</table>
-</body></html>";
-
-$confirmText = "Hi {$data['full_name']},\n\n"
-    . "Thank you for contacting Axiom Global. We have received your consultation request\n"
-    . "and will be in touch within 24 hours via {$data['contact_method']}.\n\n"
-    . "Summary:\n"
-    . "Company:          {$data['company']}\n"
-    . "Area of Interest: {$data['interest_area']}\n"
-    . "Urgency:          {$data['urgency']}\n\n"
-    . "Warm regards,\nThe Axiom Global Team";
 
 // ── PHPMailer helper ──────────────────────────────────────────────────────────
 require __DIR__ . '/vendor/autoload.php';
@@ -441,10 +326,10 @@ function saveToDatabase(array $data): void {
 
 // ── Send emails + save to DB ──────────────────────────────────────────────────
 try {
-    // 1. Save to database first
+    // 1. Save submission to database first
     saveToDatabase($data);
 
-    // 2. Owner notification email
+    // 2. Send notification email to site owner ONLY
     $owner = buildMailer();
     $owner->addAddress(env('MAIL_TO', 'owner@axg.lk'));
     $owner->addReplyTo($data['email'], $data['full_name']);
@@ -454,14 +339,19 @@ try {
     $owner->AltBody = $emailText;
     $owner->send();
 
-    // 3. User confirmation email
-    $confirm = buildMailer();
-    $confirm->addAddress($data['email'], $data['full_name']);
-    $confirm->isHTML(true);
-    $confirm->Subject = "We've received your request — Axiom Global";
-    $confirm->Body    = $confirmHTML;
-    $confirm->AltBody = $confirmText;
-    $confirm->send();
+    /* 
+     * DISABLED USER CONFIRMATION EMAIL FOR SECURITY
+     * Sending automated emails to unverified addresses supplied in form fields 
+     * is what allows bots to trigger bounce loops and get your IP suspended.
+     * 
+     * $confirm = buildMailer();
+     * $confirm->addAddress($data['email'], $data['full_name']);
+     * $confirm->isHTML(true);
+     * $confirm->Subject = "We've received your request — Axiom Global";
+     * $confirm->Body    = $confirmHTML;
+     * $confirm->AltBody = $confirmText;
+     * $confirm->send();
+     */
 
     echo json_encode([
         'success' => true,
